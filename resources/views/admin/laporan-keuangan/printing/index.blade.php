@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'laporan-keuangan';
+    $page = 'printing';
 @endphp
 
 @section('title')
@@ -35,13 +35,8 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <p class='my-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut nulla
-                            neque. Ut hendrerit nulla a euismod pretium.
-                            Fusce venenatis sagittis ex efficitur suscipit. In tempor mattis fringilla. Sed id
-                            tincidunt orci, et volutpat ligula.
-                            Aliquam sollicitudin sagittis ex, a rhoncus nisl feugiat quis. Lorem ipsum dolor sit
-                            amet, consectetur adipiscing elit.
-                            Nunc ultricies ligula a tempor vulputate. Suspendisse pretium mollis ultrices.</p>
+                        <p class='my-2'>
+                            <h4>Ini adalah Halaman {{ $page }}</h4>
                     </div>
 
                 </div>

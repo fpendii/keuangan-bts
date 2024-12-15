@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\BerandaAdminController;
-use App\Http\Controllers\Admin\LaporanKeuanganController;
+use App\Http\Controllers\Admin\LaporanPrintingController;
+use App\Http\Controllers\Admin\LaporanJilidController;
+use App\Http\Controllers\Admin\LaporanBimbelController;
+use App\Http\Controllers\Admin\LaporanJasController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,8 +22,22 @@ Route::prefix('admin')->group(function () {
     Route::controller(BerandaAdminController::class)->group(function () {
         Route::get('/beranda', 'index')->name('beranda');
     });
-    Route::controller(LaporanKeuanganController::class)->group(function () {
+
+
+    Route::controller(LaporanPrintingController::class)->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
+    });
+
+    Route::controller(LaporanJilidController::class)->group(function () {
+        Route::get('/laporan-keuangan/jilid', 'jilid')->name('laporan-keuangan.jilid');
+    });
+
+    Route::controller(LaporanBimbelController::class)->group(function () {
+        Route::get('/laporan-keuangan/bimbel', 'bimbel')->name('laporan-keuangan.bimbel');
+    });
+
+    Route::controller(LaporanJasController::class)->group(function () {
+        Route::get('/laporan-keuangan/jas', 'jas')->name('laporan-keuangan.jas');
     });
 });
 
