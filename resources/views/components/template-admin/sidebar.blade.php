@@ -18,9 +18,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('admin/laporan-keuangan/printing') ? 'active' : ''}}" href="{{ url('admin/laporan-keuangan/printing') }}">
+          <a class="nav-link {{ Request::is('admin/laporan-keuangan*') ? 'active' : ''}}" href="{{ url('admin/laporan-keuangan/printing') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-file-alt opacity-10 {{ Request::is('admin/laporan-keuangan/printing') ? '' : 'text-dark'}}"></i>
+                <i class="fa-solid fa-file-alt opacity-10 {{ Request::is('admin/laporan-keuangan*') ? '' : 'text-dark'}}"></i>
             </div>
             <span class="nav-link-text ms-1">Laporan Keuangan</span>
           </a>
