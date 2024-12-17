@@ -11,4 +11,9 @@ class LaporanPrintingController extends Controller
     {
         return view('admin.laporan-keuangan.printing.index');
     }
+
+    public function tambah()
+    {
+        return view('admin.laporan-keuangan.printing.tambah');
+    }
 }

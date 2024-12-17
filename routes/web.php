@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LaporanPrintingController;
 use App\Http\Controllers\Admin\LaporanJilidController;
 use App\Http\Controllers\Admin\LaporanBimbelController;
 use App\Http\Controllers\Admin\LaporanJasController;
+use App\Http\Controllers\Admin\LaporanServisController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,7 @@ Route::prefix('admin')->group(function () {
 
     Route::controller(LaporanPrintingController::class)->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
+        Route::get('/order/printing/tambah', 'tambah')->name('printing.tambah');
     });
 
     Route::controller(LaporanJilidController::class)->group(function () {
@@ -38,6 +40,10 @@ Route::prefix('admin')->group(function () {
 
     Route::controller(LaporanJasController::class)->group(function () {
         Route::get('/laporan-keuangan/jas', 'jas')->name('laporan-keuangan.jas');
+    });
+
+    Route::controller(LaporanServisController::class)->group(function () {
+        Route::get('/laporan-keuangan/servis', 'servis')->name('laporan-keuangan.servis');
     });
 });
 
