@@ -17,10 +17,10 @@
             <div class="col-lg-4 col-md-6 order-1 order-lg-2">
                 <div class="card h-100">
                     <div class="card-header pb-0">
-                        <h6>Orders Overview</h6>
+                        <h6>Uang Kas</h6>
                         <p class="text-sm">
                             <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                            <span class="font-weight-bold">Rp. 100.000</span> bulan ini
+                            <span class="font-weight-bold">Rp. {{ number_format($total_pemasukan) }}</span>
                         </p>
                     </div>
                     <div class="card-body p-3">
