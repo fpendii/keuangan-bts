@@ -26,7 +26,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <a href="{{ url('admin/order/'.$page.'/tambah') }}" class="btn btn-primary btn-sm">
-                                <i class="fa fa-plus"></i> Tambah Order
+                                <i class="fa fa-plus"></i> Tambah 
                             </a>
                         </div>
                     </div>
