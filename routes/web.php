@@ -29,6 +29,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
         Route::get('/order/printing/tambah', 'tambah')->name('printing.tambah');
         Route::post('/order/printing/simpan', 'simpan')->name('printing.simpan');
+        Route::get('/order/printing/edit/{id}', 'edit')->name('printing.edit');
+        Route::put('/order/printing/update/{id}', 'update')->name('printing.update');
+        Route::delete('/order/printing/hapus/{id}', 'hapus')->name('printing.hapus');
     });
 
     Route::controller(LaporanJilidController::class)->group(function () {
