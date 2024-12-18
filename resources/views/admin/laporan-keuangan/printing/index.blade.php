@@ -10,7 +10,9 @@
 
 @section('content')
     @include('components.template-admin.navbar-laporan-keuangan')
+    @include('components.alert.alert')
     <div class="card">
+
 
         <div class="row my-4">
             <!-- Orders Overview -->
@@ -26,7 +28,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
 
-                            <a href="{{ url('admin/order/'.$page.'/tambah') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ url('admin/order/' . $page . '/tambah') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-plus"></i> Tambah Order
                             </a>
                         </div>
@@ -93,7 +95,8 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Rp. {{ number_format($item->jumlah) }} </span>
+                                                <span class="text-xs font-weight-bold"> Rp.
+                                                    {{ number_format($item->jumlah) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
@@ -108,14 +111,16 @@
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="deleteModal{{ $item->id_transaksi }}" tabindex="-1"
+                                                <div class="modal fade" id="deleteModal{{ $item->id_transaksi }}"
+                                                    tabindex="-1"
                                                     aria-labelledby="deleteModalLabel{{ $item->id_transaksi }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="deleteModalLabel{{ $item->id_transaksi }}">Konfirmasi
+                                                                    id="deleteModalLabel{{ $item->id_transaksi }}">
+                                                                    Konfirmasi
                                                                     Hapus</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
@@ -126,7 +131,8 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
-                                                                <form action="{{ url('admin/order/printing/hapus/' . $item->id_transaksi) }}"
+                                                                <form
+                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_transaksi) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')

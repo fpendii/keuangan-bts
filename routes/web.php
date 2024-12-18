@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function () {
     Route::controller(LaporanPrintingController::class)->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
         Route::get('/order/printing/tambah', 'tambah')->name('printing.tambah');
+        Route::post('/order/printing/simpan', 'simpan')->name('printing.simpan');
     });
 
     Route::controller(LaporanJilidController::class)->group(function () {
