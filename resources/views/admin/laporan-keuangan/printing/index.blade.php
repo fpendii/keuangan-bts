@@ -78,45 +78,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < 5; $i++)
+                                    @foreach ($transaksi_masuk as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Hendy</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>Laporan Tugas Akhir Hendy, Laporan 2 Tugas Akhir Hendy, Laporan 3
-                                                        Tugas Akhir Hendy</small>
+                                                    <small>{{ $item->keterangan }}</small>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Rp. 100.000 </span>
+                                                <span class="text-xs font-weight-bold"> Rp. {{ number_format($item->jumlah) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $i) }}"
+                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_transaksi) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal{{ $i }}">
+                                                    data-bs-target="#deleteModal{{ $item->id_transaksi }}">
                                                     <i class="fa fa-trash"></i> Hapus
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="deleteModal{{ $i }}" tabindex="-1"
-                                                    aria-labelledby="deleteModalLabel{{ $i }}"
+                                                <div class="modal fade" id="deleteModal{{ $item->id_transaksi }}" tabindex="-1"
+                                                    aria-labelledby="deleteModalLabel{{ $item->id_transaksi }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="deleteModalLabel{{ $i }}">Konfirmasi
+                                                                    id="deleteModalLabel{{ $item->id_transaksi }}">Konfirmasi
                                                                     Hapus</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
@@ -127,7 +126,7 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
-                                                                <form action="{{ url('admin/order/printing/hapus/' . $i) }}"
+                                                                <form action="{{ url('admin/order/printing/hapus/' . $item->id_transaksi) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -140,7 +139,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endfor
+                                    @endforeach
                                 </tbody>
 
                             </table>
