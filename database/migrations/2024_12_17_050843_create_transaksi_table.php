@@ -14,6 +14,7 @@ class CreateTransaksiTable extends Migration
             $table->string('nama');
             $table->enum('jenis_transaksi', ['Pemasukan', 'Pengeluaran']);
             $table->decimal('jumlah', 15, 2);
+            $table->decimal('total', 15, 2);
             $table->text('keterangan');
             $table->date('tanggal_transaksi');
             $table->timestamps();
