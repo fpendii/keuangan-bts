@@ -76,7 +76,6 @@ class LaporanPrintingController extends Controller
         }
     }
 
-
     public function edit($id)
     {
         $transaksi = DB::table('transaksi')->where('id_transaksi', $id)->first();
