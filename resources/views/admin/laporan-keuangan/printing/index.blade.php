@@ -21,7 +21,7 @@
                     <div class="card-header pb-0">
                         <h6>Uang Kas</h6>
                         <p class="text-sm">
-                            <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                            <i class="fa  {{ $total_pemasukan > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}" aria-hidden="true"></i>
                             <span class="font-weight-bold">Rp. {{ number_format($total_pemasukan) }}</span>
                         </p>
                     </div>
@@ -33,7 +33,42 @@
                             </a>
                         </div>
                     </div>
+                    <div class="card h-100">
+                        <div class="card-header pb-0">
+                            <h6>Pengeluaran Bulan ini</h6>
+
+                        </div>
+                        <div class="card-body p-3">
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($transaksi_keluar as $item)
+                                <div class="timeline timeline-one-side">
+                                    <div class="timeline-block mb-3">
+                                        <span class="timeline-step">
+                                            <i
+                                                class="ni ni-bell-55 {{ $no % 2 === 0 ? 'text-success' : 'text-danger' }} text-gradient"></i>
+                                        </span>
+                                        <div class="timeline-content">
+                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                                {{ number_format($item->jumlah) }}, {{ $item->keterangan }}
+                                            </h6>
+                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                                                {{ $item->tanggal_transaksi }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @php
+                                    $no++; // Increment counter
+                                @endphp
+                            @endforeach
+
+
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <!-- Printing Orders Table -->
             <div class="col-lg-8 col-md-6 order-2 order-lg-1">
