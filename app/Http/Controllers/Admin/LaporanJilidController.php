@@ -17,4 +17,8 @@ class LaporanJilidController extends Controller
         $total_pemasukan = $transaksi_masuk->sum('jumlah') - $transaksi_keluar->sum('jumlah');
         return view('admin.laporan-keuangan.jilid.index',compact('transaksi_masuk', 'transaksi_keluar', 'total_pemasukan'));
     }
+
+    public function tambah(){
+        return view('admin.laporan-keuangan.jilid.tambah');
+    }
 }
