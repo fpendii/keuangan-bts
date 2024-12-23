@@ -100,7 +100,7 @@
 
                 <!-- Tombol Simpan -->
                 <div class="d-flex justify-content-between">
-                    <a href="{{ url('admin/laporan-keuangan/printing') }}" class="btn btn-secondary">
+                    <a href="{{ url('admin/laporan-keuangan/'.$page) }}" class="btn btn-secondary">
                         <i class="fa fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">

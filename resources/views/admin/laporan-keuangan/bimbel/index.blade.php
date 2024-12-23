@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'jilid';
+    $page = 'bimbel';
 @endphp
 
 @section('title')
@@ -64,6 +64,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Bimbel</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Judul Projek</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -75,6 +76,13 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">Andi</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <small class="mb-0 text-sm">Harian</small>
                                                 </div>
                                             </div>
                                         </td>
@@ -119,56 +127,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Budi</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="w-30 text-wrap">
-                                            <div class="avatar-group mt-2">
-                                                <small>Laporan Budi 1, Laporan Budi 2, Laporan Budi 3</small>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="text-xs font-weight-bold"> Rp. 100.000 </span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <!-- Tombol Edit -->
-                                            <a href="#" class="btn btn-warning btn-sm">
-                                                <i class="fa fa-pencil-alt"> Edit</i>
-                                            </a>
-                                            <!-- Tombol Hapus -->
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal2">
-                                                <i class="fa fa-trash"></i> Hapus
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="deleteModal2" tabindex="-1"
-                                                aria-labelledby="deleteModalLabel2"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteModalLabel2">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah Anda yakin ingin menghapus data ini?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <button type="button" class="btn btn-danger">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Add more rows as needed -->
                                 </tbody>
                             </table>
                         </div>

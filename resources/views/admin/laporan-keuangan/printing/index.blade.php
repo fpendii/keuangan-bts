@@ -107,6 +107,9 @@
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Dokument</th>
                                         <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Berwarna/Tidak Berwarna</th>
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Total</th>
                                         <th
@@ -122,6 +125,11 @@
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                     </div>
+                                                </div>
+                                            </td>
+                                            <td class="w-30 text-wrap">
+                                                <div class="avatar-group mt-2">
+                                                    <small>{{ $item->keterangan }}</small>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
