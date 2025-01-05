@@ -14,7 +14,6 @@ class LaporanPrintingController extends Controller
     {
         $transaksi = DB::table('pesanan_printing')->get();
 
-
         return view('admin.laporan-keuangan.printing.index', compact('transaksi'));
     }
 

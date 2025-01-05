@@ -111,6 +111,9 @@
                                             Berwarna/Tidak Berwarna</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Jumlah</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Total</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -118,51 +121,55 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($transaksi_masuk as $item)
+                                    @foreach ($transaksi as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->nama_pelanggan }}</h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->keterangan }}</small>
+                                                    <small>{{ $item->dokumen }}</small>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->keterangan }}</small>
+                                                    <small>{{ $item->warna }}</small>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Rp.
+                                                <span class="text-xs font-weight-bold">
                                                     {{ number_format($item->jumlah) }} </span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> Rp.
+                                                    {{ number_format($item->total_harga) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_transaksi) }}"
+                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_printing) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal{{ $item->id_transaksi }}">
+                                                    data-bs-target="#deleteModal{{ $item->id_pesanan_printing }}">
                                                     <i class="fa fa-trash"></i> Hapus
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="deleteModal{{ $item->id_transaksi }}"
+                                                <div class="modal fade" id="deleteModal{{ $item->id_pesanan_printing }}"
                                                     tabindex="-1"
-                                                    aria-labelledby="deleteModalLabel{{ $item->id_transaksi }}"
+                                                    aria-labelledby="deleteModalLabel{{ $item->id_pesanan_printing }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="deleteModalLabel{{ $item->id_transaksi }}">
+                                                                    id="deleteModalLabel{{ $item->id_pesanan_printing }}">
                                                                     Konfirmasi
                                                                     Hapus</h5>
                                                                 <button type="button" class="btn-close"
@@ -175,7 +182,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form
-                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_transaksi) }}"
+                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_printing) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -188,7 +195,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
 
                             </table>
