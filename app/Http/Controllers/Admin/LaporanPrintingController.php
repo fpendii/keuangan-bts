@@ -12,13 +12,10 @@ class LaporanPrintingController extends Controller
     protected $id_divisi = 1;
     public function printing()
     {
-        $transaksi_masuk = DB::table('transaksi')->where('jenis_transaksi', 'Pemasukan')->where('id_divisi', $this->id_divisi)->get();
-        $transaksi_keluar = DB::table('transaksi')->where('jenis_transaksi', 'Pengeluaran')->where('id_divisi', $this->id_divisi)->get();
-
-        $total_pemasukan = $transaksi_masuk->sum('jumlah') - $transaksi_keluar->sum('jumlah');
+        $transaksi = DB::table('pesanan_printing')->get();
 
 
-        return view('admin.laporan-keuangan.printing.index', compact('transaksi_masuk', 'transaksi_keluar', 'total_pemasukan'));
+        return view('admin.laporan-keuangan.printing.index', compact('transaksi'));
     }
 
     public function tambah()
