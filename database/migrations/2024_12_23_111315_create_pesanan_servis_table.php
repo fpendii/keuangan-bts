@@ -13,6 +13,7 @@ return new class extends Migration
             // $table->bigInteger('id_pelanggan')->unsigned();
             // $table->bigInteger('id_layanan')->unsigned();
             $table->string('jenis_servis');
+            $table->string('nama_pelanggan');
             $table->decimal('harga_modal', 10, 2);
             $table->decimal('harga_jual', 10, 2);
             $table->decimal('laba', 10, 2);

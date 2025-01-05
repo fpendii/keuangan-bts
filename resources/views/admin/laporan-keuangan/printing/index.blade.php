@@ -38,7 +38,7 @@
                             <h6>Pengeluaran Bulan ini</h6>
 
                         </div>
-                        <div class="card-body p-3">
+                        {{-- <div class="card-body p-3">
                             @php
                                 $no = 1;
                             @endphp
@@ -65,7 +65,7 @@
                             @endforeach
 
 
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

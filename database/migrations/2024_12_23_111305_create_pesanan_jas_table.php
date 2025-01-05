@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id('id_pesanan_jas');
             // $table->bigInteger('id_pelanggan')->unsigned();
             $table->bigInteger('id_layanan')->unsigned();
+            $table->string('nama_pelanggan');
             $table->string('ukuran_jas');
             $table->integer('jumlah');
             $table->decimal('total_harga', 10, 2);

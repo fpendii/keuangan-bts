@@ -13,6 +13,7 @@ return new class extends Migration
             // $table->bigInteger('id_pelanggan')->unsigned();
             $table->bigInteger('id_layanan')->unsigned();
             $table->string('jenis_bimbel');
+            $table->string('nama_pelanggan');
             $table->string('judul_projek');
             $table->decimal('total_harga', 10, 2);
             $table->timestamps();
