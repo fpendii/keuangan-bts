@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'jilid';
+    $page = 'bimbel';
 @endphp
 
 @section('title')
@@ -78,7 +78,7 @@
                             <div class="col-lg-6 col-7">
                                 <h6>Printing Orders</h6>
                                 <p class="text-sm mb-0">
-                                    Data Orders Printing Perbulan
+                                    Data Orders {{ Str::of($page)->replace('-', ' ')->title() }} Perbulan
                                 </p>
                             </div>
                             <div class="col-lg-6 col-5 my-auto text-end">
@@ -132,44 +132,40 @@
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->dokumen }}</small>
+                                                    <small>{{ $item->jenis_bimbel }}</small>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->jenis_jilid }}</small>
+                                                    <small>{{ $item->judul_projek }}</small>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <span class="text-xs font-weight-bold">
-                                                    {{ number_format($item->jumlah) }} </span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Rp.
                                                     {{ number_format($item->total_harga) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_jilid) }}"
+                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_bimbel) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal{{ $item->id_pesanan_jilid }}">
+                                                    data-bs-target="#deleteModal{{ $item->id_pesanan_bimbel }}">
                                                     <i class="fa fa-trash"></i> Hapus
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="deleteModal{{ $item->id_pesanan_jilid }}"
+                                                <div class="modal fade" id="deleteModal{{ $item->id_pesanan_bimbel }}"
                                                     tabindex="-1"
-                                                    aria-labelledby="deleteModalLabel{{ $item->id_pesanan_jilid }}"
+                                                    aria-labelledby="deleteModalLabel{{ $item->id_pesanan_bimbel }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="deleteModalLabel{{ $item->id_pesanan_jilid }}">
+                                                                    id="deleteModalLabel{{ $item->id_pesanan_bimbel }}">
                                                                     Konfirmasi
                                                                     Hapus</h5>
                                                                 <button type="button" class="btn-close"
@@ -182,7 +178,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form
-                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_jilid) }}"
+                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_bimbel) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
