@@ -11,11 +11,10 @@ class LaporanJilidController extends Controller
 
     public function jilid()
     {
-        $transaksi = DB::table('pesanan_printing');
-        dd($transaksi);
+        $transaksi = DB::table('pesanan_jilid')->get();
 
 
-        return view('admin.laporan-keuangan.jilid.index',compact('transaksi_masuk', 'transaksi_keluar', 'total_pemasukan'));
+        return view('admin.laporan-keuangan.jilid.index',compact('transaksi'));
     }
 
     public function tambah(){

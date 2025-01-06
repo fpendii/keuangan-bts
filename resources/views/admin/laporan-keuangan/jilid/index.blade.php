@@ -20,10 +20,10 @@
                 <div class="card h-100">
                     <div class="card-header pb-0">
                         <h6>Uang Kas</h6>
-                        <p class="text-sm">
+                        {{-- <p class="text-sm">
                             <i class="fa  {{ $total_pemasukan > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}" aria-hidden="true"></i>
                             <span class="font-weight-bold">Rp. {{ number_format($total_pemasukan) }}</span>
-                        </p>
+                        </p> --}}
                     </div>
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
@@ -38,11 +38,11 @@
                             <h6>Pengeluaran Bulan ini</h6>
 
                         </div>
-                        <div class="card-body p-3">
+                        {{-- <div class="card-body p-3">
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($transaksi_keluar as $item)
+                            @foreach ($transaksi as $item)
                                 <div class="timeline timeline-one-side">
                                     <div class="timeline-block mb-3">
                                         <span class="timeline-step">
@@ -65,7 +65,7 @@
                             @endforeach
 
 
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -76,9 +76,9 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-lg-6 col-7">
-                                <h6>{{ ucfirst($page) }} Orders</h6>
+                                <h6>Printing Orders</h6>
                                 <p class="text-sm mb-0">
-                                    Data Orders {{ ucfirst($page) }} Perbulan
+                                    Data Orders Printing Perbulan
                                 </p>
                             </div>
                             <div class="col-lg-6 col-5 my-auto text-end">
@@ -107,8 +107,11 @@
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Dokument</th>
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Jenis Jilid</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Jumlah</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Total</th>
@@ -118,46 +121,55 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($transaksi_masuk as $item)
+                                    @foreach ($transaksi as $item)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->nama_pelanggan }}</h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->keterangan }}</small>
+                                                    <small>{{ $item->dokumen }}</small>
+                                                </div>
+                                            </td>
+                                            <td class="w-30 text-wrap">
+                                                <div class="avatar-group mt-2">
+                                                    <small>{{ $item->jenis_jilid }}</small>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Rp.
+                                                <span class="text-xs font-weight-bold">
                                                     {{ number_format($item->jumlah) }} </span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> Rp.
+                                                    {{ number_format($item->total_harga) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_transaksi) }}"
+                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_jilid) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal{{ $item->id_transaksi }}">
+                                                    data-bs-target="#deleteModal{{ $item->id_pesanan_jilid }}">
                                                     <i class="fa fa-trash"></i> Hapus
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="deleteModal{{ $item->id_transaksi }}"
+                                                <div class="modal fade" id="deleteModal{{ $item->id_pesanan_jilid }}"
                                                     tabindex="-1"
-                                                    aria-labelledby="deleteModalLabel{{ $item->id_transaksi }}"
+                                                    aria-labelledby="deleteModalLabel{{ $item->id_pesanan_jilid }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="deleteModalLabel{{ $item->id_transaksi }}">
+                                                                    id="deleteModalLabel{{ $item->id_pesanan_jilid }}">
                                                                     Konfirmasi
                                                                     Hapus</h5>
                                                                 <button type="button" class="btn-close"
@@ -170,7 +182,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form
-                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_transaksi) }}"
+                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_jilid) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
