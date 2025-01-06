@@ -45,12 +45,40 @@
 
                 <!-- Pilihan Warna -->
                 <div class="mb-3">
-                    <label for="warna" class="form-label">Warna</label>
-                    <select class="form-control @error('warna') is-invalid @enderror" id="warna" name="warna" required>
-                        <option value="Color" {{ old('warna') == 'Color' ? 'selected' : '' }}>Color</option>
-                        <option value="Grayscale" {{ old('warna') == 'Grayscale' ? 'selected' : '' }}>Grayscale</option>
-                    </select>
+                    <label class="form-label">Warna</label>
+                    <div class="form-check">
+                        <input class="form-check-input @error('warna') is-invalid @enderror" type="radio" name="warna" id="warna_color" value="Color" {{ old('warna') == 'Color' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="warna_color">
+                            Color
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('warna') is-invalid @enderror" type="radio" name="warna" id="warna_grayscale" value="Grayscale" {{ old('warna') == 'Grayscale' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="warna_grayscale">
+                            Grayscale
+                        </label>
+                    </div>
                     @error('warna')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Pilihan Kertas -->
+                <div class="mb-3">
+                    <label class="form-label">Kertas Sendiri?</label>
+                    <div class="form-check">
+                        <input class="form-check-input @error('kertas') is-invalid @enderror" type="radio" name="kertas" id="kertas_tidak" value="Tidak" {{ old('kertas') == 'Tidak' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="kertas_tidak">
+                            Tidak
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('kertas') is-invalid @enderror" type="radio" name="kertas" id="kertas_ya" value="Ya" {{ old('kertas') == 'Ya' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="kertas_ya">
+                            Ya
+                        </label>
+                    </div>
+                    @error('kertas')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
