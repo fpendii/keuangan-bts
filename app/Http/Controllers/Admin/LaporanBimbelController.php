@@ -14,4 +14,8 @@ class LaporanBimbelController extends Controller
 
         return view('admin.laporan-keuangan.bimbel.index', compact('transaksi'));
     }
+
+    public function tambah(){
+        return view('admin.laporan-keuangan.bimbel.tambah');
+    }
 }

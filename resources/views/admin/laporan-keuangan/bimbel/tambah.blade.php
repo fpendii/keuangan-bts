@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'jilid';
+    $page = 'bimbel';
 @endphp
 
 @section('title')
@@ -32,33 +32,25 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="nama_dokument" class="form-label">Unggah Dokumen</label>
-                        <input type="file" class="form-control @error('nama_dokument') is-invalid @enderror"
-                            id="nama_dokument" name="nama_dokument" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-                        <small class="text-muted">Format yang diperbolehkan: PDF, Word, Excel, PowerPoint</small>
-                        @error('nama_dokument')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
                 </div>
 
                 <!-- Pilihan Warna -->
                 <div class="mb-3">
-                    <label class="form-label">Jenis Jilid</label>
+                    <label class="form-label">Jenis Bimbel</label>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_jilid') is-invalid @enderror" type="radio" name="jenis_jilid" id="jenis_jilid_soft" value="Soft Cover" {{ old('jenis_jilid') == 'Soft Cover' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="jenis_jilid_soft">
-                            Soft Cover
+                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="jenis_bimbel_harian">
+                            Bimbel Harian
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_jilid') is-invalid @enderror" type="radio" name="jenis_jilid" id="jenis_jilid_hard" value="Hard Cover" {{ old('jenis_jilid') == 'Hard Cover' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="warna_grayscale">
-                            Hard Cover
+                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="jenis_bimbel_harian">
+                            Bimbel Harian
                         </label>
                     </div>
-                    @error('jenis_jilid')
+
+                    @error('jenis_bimbel')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
