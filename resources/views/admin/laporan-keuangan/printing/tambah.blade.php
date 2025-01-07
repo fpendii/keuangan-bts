@@ -5,18 +5,18 @@
 @endphp
 
 @section('title')
-    Tambah Order / Pengeluaran Printing
+    Tambah Order {{ Str::of($page)->replace('-', ' ')->title() }}
 @endsection
 
 @section('content')
     <div class="card mb-4">
         <div class="card-header pb-0">
-            <h6>Tambah Order / Pengeluaran Printing</h6>
+            <h6>Tambah Order {{ Str::of($page)->replace('-', ' ')->title() }}</h6>
         </div>
         <div class="card-body">
 
             <!-- Form -->
-            <form action="{{ url('admin/order/printing/simpan') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('admin/order/'. $page .'/simpan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Bagian Tambah Order -->
@@ -107,7 +107,7 @@
 
                 <!-- Tombol Simpan -->
                 <div class="d-flex justify-content-between">
-                    <a href="{{ url('admin/laporan-keuangan/printing') }}" class="btn btn-secondary">
+                    <a href="{{ url('admin/laporan-keuangan/'.$page) }}" class="btn btn-secondary">
                         <i class="fa fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
