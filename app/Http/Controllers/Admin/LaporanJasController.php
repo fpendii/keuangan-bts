@@ -13,4 +13,8 @@ class LaporanJasController extends Controller
 
         return view('admin.laporan-keuangan.jas.index',compact('transaksi'));
     }
+
+    public function tambah(){
+        return view('admin.laporan-keuangan.jas.tambah');
+    }
 }
