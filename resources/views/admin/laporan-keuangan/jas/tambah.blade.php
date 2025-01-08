@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'jilid';
+    $page = 'jas';
 @endphp
 
 @section('title')
@@ -32,32 +32,48 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="nama_dokument" class="form-label">Unggah Dokumen</label>
-                        <input type="file" class="form-control @error('nama_dokument') is-invalid @enderror"
-                            id="nama_dokument" name="nama_dokument" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-                        <small class="text-muted">Format yang diperbolehkan: PDF, Word, Excel, PowerPoint</small>
-                        @error('nama_dokument')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
                 </div>
 
                 <!-- Pilihan Warna -->
                 <div class="mb-3">
-                    <label class="form-label">Jenis Jilid</label>
+                    <label class="form-label">Ukuran Jas</label>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_jilid') is-invalid @enderror" type="radio" name="jenis_jilid" id="jenis_jilid_soft" value="Soft Cover" {{ old('jenis_jilid') == 'Soft Cover' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="jenis_jilid_soft">
-                            Soft Cover
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_s" value="S" {{ old('ukuran_jas') == 'S' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_s">
+                            S
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_jilid') is-invalid @enderror" type="radio" name="jenis_jilid" id="jenis_jilid_hard" value="Hard Cover" {{ old('jenis_jilid') == 'Hard Cover' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="warna_grayscale">
-                            Hard Cover
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_m" value="M" {{ old('ukuran_jas') == 'M' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_m">
+                            M
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_l" value="L" {{ old('ukuran_jas') == 'L' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_l">
+                            L
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_xl" value="Xl" {{ old('ukuran_jas') == 'XL' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_xl">
+                            XL
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_xxl" value="XXL" {{ old('ukuran_jas') == 'XXL' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_xxl">
+                            XXL
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input @error('ukuran_jas') is-invalid @enderror" type="radio" name="ukuran_jas" id="ukuran_jas_xxxl" value="XXXL" {{ old('ukuran_jas') == 'XXXl' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="ukuran_jas_xxxl">
+                           XXXL
+                        </label>
+                    </div>
+
                     @error('jenis_jilid')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -65,9 +81,9 @@
 
                 <!-- Jumlah Lembar -->
                 <div class="mb-3">
-                    <label for="jumlah" class="form-label">Jumlah Lembar</label>
+                    <label for="jumlah" class="form-label">Jumlah</label>
                     <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah"
-                        name="jumlah" placeholder="Masukkan jumlah lembar dokumen" value="{{ old('jumlah') }}" required>
+                        name="jumlah" placeholder="Masukkan jumlah jas" value="{{ old('jumlah') }}" required>
                     @error('jumlah')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -82,8 +98,6 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
-
 
                 <!-- Tombol Simpan -->
                 <div class="d-flex justify-content-between">
