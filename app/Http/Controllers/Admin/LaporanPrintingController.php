@@ -33,9 +33,9 @@ class LaporanPrintingController extends Controller
             'deskripsi_pengeluaran' => 'required_if:mode,pengeluaran'
         ]);
 
-        // Proses data berdasarkan mode
+
         if ($request->mode === 'order') {
-            // Proses untuk Tambah Order
+
             $nama_dokument = $request->file('nama_dokument')->getClientOriginalName();
             $total_harga = str_replace('.', '', $request->total_harga);
 
@@ -53,7 +53,7 @@ class LaporanPrintingController extends Controller
             return redirect()->to('admin/laporan-keuangan/printing')
                 ->with('success', 'Order berhasil disimpan');
         } else {
-            // Proses untuk Tambah Pengeluaran
+            
             $total_harga = str_replace('.', '', $request->total_harga);
 
             DB::table('transaksi')->insert([
