@@ -25,18 +25,18 @@
                         <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
                         <input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror"
                             id="nama_pelanggan" name="nama_pelanggan" placeholder="Masukkan nama pelanggan"
-                            value="{{ old('nama_pelanggan') }}">
+                            value="{{ old('nama_pelanggan') }}" required>
                         @error('nama_pelanggan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3">
-                        <label for="nama_dokument" class="form-label">Unggah Dokumen</label>
-                        <input type="file" class="form-control @error('nama_dokument') is-invalid @enderror"
-                            id="nama_dokument" name="nama_dokument" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                        <label for="dokumen" class="form-label">Unggah Dokumen</label>
+                        <input type="file" class="form-control @error('dokumen') is-invalid @enderror"
+                            id="dokumen" name="dokumen" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
                         <small class="text-muted">Format yang diperbolehkan: PDF, Word, Excel, PowerPoint</small>
-                        @error('nama_dokument')
+                        @error('dokumen')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

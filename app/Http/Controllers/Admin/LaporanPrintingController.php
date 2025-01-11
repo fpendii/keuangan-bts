@@ -25,13 +25,26 @@ class LaporanPrintingController extends Controller
 
     public function simpan(Request $request)
     {
-        dd($request->all());
         $request->validate([
-            'total_harga' => 'required|numeric',
-            'mode' => 'required|in:order,pengeluaran',
-            'nama_pelanggan' => 'required_if:mode,order',
-            'nama_dokument' => 'required_if:mode,order|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
-            'deskripsi_pengeluaran' => 'required_if:mode,pengeluaran'
+            'nama_pelanggan' => 'required',
+            'warna' => 'required',
+            'kertas' => 'required',
+            'jumlah' => 'required|numeric|min:1',
+            'total_harga' => 'required|numeric|min:1',
+            'dokumen' => 'required_if:mode,pengeluaran|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
+        ], [
+            'dokumen.required_if' => 'Dokumen harus diunggah untuk transaksi pengeluaran.',
+            'dokumen.file' => 'Dokumen harus berupa file.',
+            'dokumen.mimes' => 'Format dokumen yang diperbolehkan: PDF, Word, Excel, PowerPoint.',
+            'total_harga.required' => 'Total harga harus diisi.',
+            'total_harga.numeric' => 'Total harga harus berupa angka.',
+            'total_harga.min' => 'Total harga minimal 1.',
+            'jumlah.required' => 'Jumlah lembar harus diisi.',
+            'jumlah.numeric' => 'Jumlah lembar harus berupa angka.',
+            'jumlah.min' => 'Jumlah lembar minimal 1.',
+            'warna.required' => 'Warna harus diisi.',
+            'kertas.required' => 'Kertas harus diisi.',
+            'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
         ]);
     }
 
