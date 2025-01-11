@@ -46,6 +46,21 @@ class LaporanPrintingController extends Controller
             'kertas.required' => 'Kertas harus diisi.',
             'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
         ]);
+
+        $total_harga = str_replace('.', '', $request->total_harga);
+
+        DB::table('pesanan_printing')->insert([
+            'nama_pelanggan' => $request->nama_pelanggan,
+            'warna' => $request->warna,
+            'kertas' => $request->kertas,
+            'jumlah' => $request->jumlah,
+            'total_harga' => $total_harga,
+            'dokumen' => $request->file('dokumen')->getClientOriginalName(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Transaksi berhasil disimpan.');
     }
 
     public function edit($id)
