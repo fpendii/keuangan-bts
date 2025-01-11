@@ -25,6 +25,7 @@ class LaporanPrintingController extends Controller
 
     public function simpan(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'total_harga' => 'required|numeric',
             'mode' => 'required|in:order,pengeluaran',
@@ -32,44 +33,6 @@ class LaporanPrintingController extends Controller
             'nama_dokument' => 'required_if:mode,order|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
             'deskripsi_pengeluaran' => 'required_if:mode,pengeluaran'
         ]);
-
-
-        if ($request->mode === 'order') {
-
-            $nama_dokument = $request->file('nama_dokument')->getClientOriginalName();
-            $total_harga = str_replace('.', '', $request->total_harga);
-
-            DB::table('transaksi')->insert([
-                'id_divisi' => $this->id_divisi,
-                'nama' => $request->nama_pelanggan,
-                'jenis_transaksi' => 'Pemasukan',
-                'jumlah' => $total_harga,
-                'keterangan' => $nama_dokument,
-                'tanggal_transaksi' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            return redirect()->to('admin/laporan-keuangan/printing')
-                ->with('success', 'Order berhasil disimpan');
-        } else {
-            
-            $total_harga = str_replace('.', '', $request->total_harga);
-
-            DB::table('transaksi')->insert([
-                'id_divisi' => $this->id_divisi,
-                'nama' => 'Pengeluaran',
-                'jenis_transaksi' => 'Pengeluaran',
-                'jumlah' => $total_harga,
-                'keterangan' => $request->deskripsi_pengeluaran,
-                'tanggal_transaksi' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            return redirect()->to('admin/laporan-keuangan/printing')
-                ->with('success', 'Pengeluaran berhasil disimpan');
-        }
     }
 
     public function edit($id)

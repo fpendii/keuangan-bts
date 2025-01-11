@@ -21,7 +21,7 @@
 
                 <!-- Bagian Tambah Order -->
                 <div id="order-fields" style="display: block;">
-                    <input type="hidden" name="mode" value="order" id="mode-input">
+
                     <div class="mb-3">
                         <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
                         <input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror"
