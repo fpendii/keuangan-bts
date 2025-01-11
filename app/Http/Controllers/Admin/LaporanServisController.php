@@ -14,4 +14,8 @@ class LaporanServisController extends Controller
 
         return view('admin.laporan-keuangan.servis.index',compact('transaksi'));
     }
+
+    public function tambah(){
+        return view('admin.laporan-keuangan.servis.tambah');
+    }
 }
