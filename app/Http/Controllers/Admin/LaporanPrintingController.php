@@ -98,7 +98,7 @@ class LaporanPrintingController extends Controller
 
     public function hapus($id)
     {
-        $transaksi = DB::table('transaksi')->where('id_transaksi', $id)->delete();
+        DB::table('pesanan_printing')->where('id_pesanan_printing', $id)->delete();
 
         return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Data berhasil dihapus');
     }
