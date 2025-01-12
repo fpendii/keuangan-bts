@@ -73,22 +73,21 @@ class LaporanPrintingController extends Controller
     public function update(TransaksiRequest $request, $id)
     {
 
-        $total_harga = str_replace('.', '', $request->jumlah);
-
         if (!$request->file('nama_dokument')) {
             $nama_dokument = $request->nama_dokument_lama;
         } else {
             $nama_dokument = $request->file('nama_dokument')->getClientOriginalName();
         }
 
+        $total_harga = str_replace('.', '', $request->total_harga);
 
-        DB::table('transaksi')->where('id_transaksi', $id)->update([
-            'id_divisi' => $this->id_divisi,
-            'nama' => $request->nama_pelanggan,
-            'jenis_transaksi' => 'Pemasukan',
-            'jumlah' => $total_harga,
-            'keterangan' => $nama_dokument,
-            'tanggal_transaksi' => now(),
+        DB::table('pesanan_printing')->where('id_pesanan_printing', $id)->update([
+            'nama_pelanggan' => $request->nama_pelanggan,
+            'jumlah' => $request->jumlah,
+            'dokumen' => $nama_dokument,
+            'warna' => $request->warna,
+            'kertas' => $request->kertas,
+            'total_harga' => $total_harga,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

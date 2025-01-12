@@ -83,11 +83,11 @@
 
                 <!-- Input Total Harga -->
                 <div class="mb-3">
-                    <label for="jumlah" class="form-label">Total Harga</label>
-                    <input type="text" class="form-control @error('jumlah') is-invalid @enderror" id="total_harga" name="jumlah"
-                           value="{{ old('jumlah', number_format($transaksi->total_harga, 0, ',', '.')) }}"
+                    <label for="total_harga" class="form-label">Total Harga</label>
+                    <input type="text" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga" name="total_harga"
+                           value="{{ old('total_harga', number_format($transaksi->total_harga, 0, ',', '.')) }}"
                            placeholder="Masukkan total harga" required>
-                    @error('jumlah')
+                    @error('total_harga')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
