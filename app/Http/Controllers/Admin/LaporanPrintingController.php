@@ -65,7 +65,7 @@ class LaporanPrintingController extends Controller
 
     public function edit($id)
     {
-        $transaksi = DB::table('transaksi')->where('id_transaksi', $id)->first();
+        $transaksi = DB::table('pesanan_printing')->where('id_pesanan_printing', $id)->first();
 
         return view('admin.laporan-keuangan.printing.edit', compact('transaksi'));
     }
