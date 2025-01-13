@@ -150,7 +150,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_jilid) }}"
+                                            <a href="{{ url('admin/order/jilid/edit/' . $item->id_pesanan_jilid) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
@@ -182,7 +182,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form
-                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_jilid) }}"
+                                                                    action="{{ url('admin/order/'. $page .'/hapus/' . $item->id_pesanan_jilid) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
