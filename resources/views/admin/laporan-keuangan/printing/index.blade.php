@@ -20,10 +20,10 @@
                 <div class="card h-100">
                     <div class="card-header pb-0">
                         <h6>Uang Kas</h6>
-                        {{-- <p class="text-sm">
-                            <i class="fa  {{ $total_pemasukan > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}" aria-hidden="true"></i>
-                            <span class="font-weight-bold">Rp. {{ number_format($total_pemasukan) }}</span>
-                        </p> --}}
+                        <p class="text-sm">
+                            <i class="fa  {{ $totalPendapatanBulanIni > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}" aria-hidden="true"></i>
+                            <span class="font-weight-bold">Rp. {{ number_format($totalPendapatanBulanIni) }}</span>
+                        </p>
                     </div>
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">

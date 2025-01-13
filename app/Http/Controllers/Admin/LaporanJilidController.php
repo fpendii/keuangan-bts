@@ -17,7 +17,7 @@ class LaporanJilidController extends Controller
         return view('admin.laporan-keuangan.jilid.index',compact('transaksi'));
     }
 
-    public function tambah(){
-        return view('admin.laporan-keuangan.jilid.tambah');
-    }
+        public function tambah(){
+            return view('admin.laporan-keuangan.jilid.tambah');
+        }
 }

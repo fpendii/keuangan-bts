@@ -13,8 +13,13 @@ class LaporanPrintingController extends Controller
     public function printing()
     {
         $transaksi = DB::table('pesanan_printing')->get();
+        $totalPendapatanBulanIni = DB::table('pesanan_printing')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
 
-        return view('admin.laporan-keuangan.printing.index', compact('transaksi'));
+
+        return view('admin.laporan-keuangan.printing.index', compact('transaksi', 'totalPendapatanBulanIni'));
     }
 
     public function tambah()
