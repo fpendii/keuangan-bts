@@ -18,4 +18,10 @@ class LaporanBimbelController extends Controller
     public function tambah(){
         return view('admin.laporan-keuangan.bimbel.tambah');
     }
+
+    public function edit($id){
+        $transaksi = DB::table('pesanan_bimbel')->where('id_pesanan_bimbel', $id)->first();
+
+        return view('admin.laporan-keuangan.bimbel.edit', compact('transaksi'));
+    }
 }
