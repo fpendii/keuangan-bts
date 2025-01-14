@@ -43,9 +43,9 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="jenis_bimbel_harian">
-                            Bimbel Harian
+                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_paket" value="Bimbel Paket" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="jenis_bimbel_paket">
+                            Bimbel Paket
                         </label>
                     </div>
 
@@ -66,7 +66,7 @@
 
                 <!-- Total Harga -->
                 <div class="mb-3">
-                    <label for="total_harga" class="form-label">Judul Projek</label>
+                    <label for="total_harga" class="form-label">Total Harga</label>
                     <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
                         name="total_harga" placeholder="Masukkan total harga" value="{{ old('total_harga') }}" required>
                     @error('total_harga')

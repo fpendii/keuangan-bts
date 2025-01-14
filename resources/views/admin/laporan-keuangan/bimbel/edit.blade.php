@@ -16,7 +16,8 @@
         <div class="card-body">
 
             <!-- Form -->
-            <form action="{{ url('admin/order/'. $page .'/simpan') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('admin/order/bimbel/update/' . $transaksi->id_pesanan_bimbel) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
 
                 <!-- Bagian Tambah Order -->
@@ -25,7 +26,7 @@
                         <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
                         <input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror"
                             id="nama_pelanggan" name="nama_pelanggan" placeholder="Masukkan nama pelanggan"
-                            value="{{ old('nama_pelanggan') }}">
+                            value="{{ $transaksi->nama_pelanggan ,old('nama_pelanggan') }}">
                         @error('nama_pelanggan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -37,15 +38,15 @@
                 <div class="mb-3">
                     <label class="form-label">Jenis Bimbel</label>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
+                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ $transaksi->jenis_bimbel == 'Bimbel Harian' || old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
                         <label class="form-check-label" for="jenis_bimbel_harian">
                             Bimbel Harian
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_harian" value="Bimbel Harian" {{ old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="jenis_bimbel_harian">
-                            Bimbel Harian
+                        <input class="form-check-input @error('jenis_bimbel') is-invalid @enderror" type="radio" name="jenis_bimbel" id="jenis_bimbel_paket" value="Bimbel Paket" {{ $transaksi->jenis_bimbel == 'Bimbel Paket' || old('jenis_bimbel') == 'Soft Cover' ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="jenis_bimbel_paket">
+                            Bimbel Paket
                         </label>
                     </div>
 
@@ -58,7 +59,7 @@
                 <div class="mb-3">
                     <label for="judul_projek" class="form-label">Judul Projek</label>
                     <input type="text" class="form-control @error('judul_projek') is-invalid @enderror" id="judul_projek"
-                        name="judul_projek" placeholder="Masukkan judul projek" value="{{ old('judul_projek') }}" required>
+                        name="judul_projek" placeholder="Masukkan judul projek" value="{{ $transaksi->judul_projek , old('judul_projek') }}" required>
                     @error('judul_projek')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -68,7 +69,7 @@
                 <div class="mb-3">
                     <label for="total_harga" class="form-label">Total Harga</label>
                     <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
-                        name="total_harga" placeholder="Masukkan total harga" value="{{ old('total_harga') }}" required>
+                        name="total_harga" placeholder="Masukkan total harga" value="{{ $transaksi->total_harga , old('total_harga') }}" required>
                     @error('total_harga')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
