@@ -12,9 +12,12 @@ class LaporanJilidController extends Controller
     public function jilid()
     {
         $transaksi = DB::table('pesanan_jilid')->get();
+        $totalPendapatanBulanIni = DB::table('pesanan_jilid')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
 
-
-        return view('admin.laporan-keuangan.jilid.index', compact('transaksi'));
+        return view('admin.laporan-keuangan.jilid.index', compact('transaksi', 'totalPendapatanBulanIni'));
     }
 
     public function tambah()
