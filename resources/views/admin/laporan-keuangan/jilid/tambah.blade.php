@@ -64,7 +64,7 @@
 
                 <!-- Jumlah Lembar -->
                 <div class="mb-3">
-                    <label for="jumlah" class="form-label">Jumlah Lembar</label>
+                    <label for="jumlah" class="form-label">Jumlah</label>
                     <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah"
                         name="jumlah" placeholder="Masukkan jumlah lembar dokumen" value="{{ old('jumlah') }}" required>
                     @error('jumlah')
