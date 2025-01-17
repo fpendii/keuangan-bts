@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('nama_pelanggan');
             $table->string('ukuran_jas');
             $table->integer('jumlah');
-            $table->decimal('total_harga', 10, 2);
+            $table->string('total_harga', 10, 2);
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');
