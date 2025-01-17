@@ -55,6 +55,12 @@ class LaporanJasController extends Controller
         return redirect()->to('admin/laporan-keuangan/jas')->with('success', 'Data berhasil disimpan');
     }
 
+    public function edit($id){
+        $transaksi = DB::table('pesanan_jas')->where('id_pesanan_jas', $id)->first();
+
+        return view('admin.laporan-keuangan.jas.edit', compact('transaksi'));
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate(

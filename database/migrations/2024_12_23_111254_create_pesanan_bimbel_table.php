@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('jenis_bimbel');
             $table->string('nama_pelanggan');
             $table->string('judul_projek');
-            $table->decimal('total_harga', 10, 2);
+            $table->string('total_harga');
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');
