@@ -14,9 +14,9 @@ return new class extends Migration
             // $table->bigInteger('id_layanan')->unsigned();
             $table->string('jenis_servis');
             $table->string('nama_pelanggan');
-            $table->decimal('harga_modal', 10, 2);
-            $table->decimal('harga_jual', 10, 2);
-            $table->decimal('laba', 10, 2);
+            $table->string('harga_modal');
+            $table->string('harga_jual');
+            $table->string('laba');
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');
