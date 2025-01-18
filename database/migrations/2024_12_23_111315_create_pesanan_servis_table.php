@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id('id_pesanan_servis');
             // $table->bigInteger('id_pelanggan')->unsigned();
             // $table->bigInteger('id_layanan')->unsigned();
+            $table->string('unit_servis');
+            $table->string('kelengkapan');
             $table->string('jenis_servis');
             $table->string('nama_pelanggan');
             $table->string('harga_modal');
