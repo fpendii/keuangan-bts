@@ -1,7 +1,7 @@
 @extends('components.template-admin.template')
 
 @php
-    $page = 'jas';
+    $page = 'servis';
 @endphp
 
 @section('title')
