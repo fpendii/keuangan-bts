@@ -44,6 +44,24 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="unit_servis" class="form-label">Unit Servis</label>
+                    <input type="text" class="form-control @error('unit_servis') is-invalid @enderror" id="unit_servis"
+                        name="unit_servis" placeholder="Masukkan Unit Servis" value="{{ old('unit_servis') }}" required>
+                    @error('unit_servis')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="kelengkapan" class="form-label">Kelengkapan</label>
+                    <input type="text" class="form-control @error('kelengkapan') is-invalid @enderror" id="kelengkapan"
+                        name="kelengkapan" placeholder="Masukkan Kelengkapan Servis" value="{{ old('kelengkapan') }}" required>
+                    @error('kelengkapan')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="harga_modal" class="form-label">Harga Modal</label>
                     <input type="number" class="form-control @error('harga_modal') is-invalid @enderror" id="harga_modal"
                         name="harga_modal" placeholder="Masukkan Harga Modal" value="{{ old('harga_modal') }}" required>

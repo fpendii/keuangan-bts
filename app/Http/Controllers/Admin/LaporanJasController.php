@@ -11,8 +11,12 @@ class LaporanJasController extends Controller
     public function jas()
     {
         $transaksi = DB::table('pesanan_jas')->get();
+        $totalPendapatanBulanIni = DB::table('pesanan_jas')
+        ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+        ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+        ->sum('total_harga');
 
-        return view('admin.laporan-keuangan.jas.index', compact('transaksi'));
+        return view('admin.laporan-keuangan.jas.index', compact('transaksi', 'totalPendapatanBulanIni'));
     }
 
     public function tambah()
