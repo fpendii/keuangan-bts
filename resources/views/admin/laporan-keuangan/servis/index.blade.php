@@ -76,7 +76,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-lg-6 col-7">
-                                <h6>Printing Orders</h6>
+                                <h6>Servis Orders</h6>
                                 <p class="text-sm mb-0">
                                     Data Orders {{ Str::of($page)->replace('-', ' ')->title() }} Perbulan
                                 </p>
@@ -150,7 +150,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_servis) }}"
+                                                <a href="{{ url('admin/order/servis/edit/' . $item->id_pesanan_servis) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fa fa-pencil-alt"> Edit</i>
                                                 </a>
@@ -182,7 +182,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form
-                                                                    action="{{ url('admin/order/printing/hapus/' . $item->id_pesanan_servis) }}"
+                                                                    action="{{ url('admin/order/servis/hapus/' . $item->id_pesanan_servis) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')

@@ -62,7 +62,55 @@ class LaporanServisController extends Controller
 
     public function edit($id){
         $transaksi = DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->first();
+        $data = [
+            'harga_modal' => number_format($transaksi->harga_modal, 0, ',', '.'),
+            'harga_jual' => number_format($transaksi->harga_jual, 0, ',', '.'),
+            'laba' => number_format($transaksi->laba, 0, ',', '.'),
+        ];
 
-        return view('admin.laporan-keuangan.servis.edit', compact('transaksi'));
+        return view('admin.laporan-keuangan.servis.edit', compact('transaksi'), $data);
+    }
+
+    public function update(Request $request, $id){
+        $request->validate(
+            [
+                'nama_pelanggan' => 'required',
+                'jenis_servis' => 'required',
+                'unit_servis' => 'required',
+                'kelengkapan' => 'required',
+                'harga_modal' => 'required',
+                'harga_jual' => 'required',
+                'laba' => 'required',
+            ],
+            [
+                'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
+                'jenis_servis.required' => 'Jenis servis harus diisi.',
+                'unit_servis.required' => 'Unit servis harus diisi.',
+                'kelengkapan.required' => 'Kelengkapan harus diisi.',
+                'harga_modal.required' => 'Harga modal harus diisi.',
+                'harga_jual.required' => 'Harga jual harus diisi.',
+                'laba.required' => 'Laba harus diisi.',
+            ]
+        );
+
+        $harga_modal = str_replace('.', '', $request->harga_modal);
+        $harga_jual = str_replace('.', '', $request->harga_jual);
+        $laba = str_replace('.', '', $request->laba);
+
+        $pesanan_jas = DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->first();
+
+        DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->update([
+            'nama_pelanggan' => $request->nama_pelanggan,
+            'jenis_servis' => $request->jenis_servis,
+            'unit_servis' => $request->unit_servis,
+            'kelengkapan' => $request->kelengkapan,
+            'harga_modal' => $harga_modal,
+            'harga_jual' => $harga_jual,
+            'laba' => $laba,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/admin/laporan-keuangan/servis')->with('success', 'Data berhasil diubah.');
     }
 }
