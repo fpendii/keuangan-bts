@@ -137,7 +137,7 @@
                                             </td>
                                             <td class="w-30 text-wrap">
                                                 <div class="avatar-group mt-2">
-                                                    <small>{{ $item->harga_modal }}</small>
+                                                    <small>{{ number_format($item->harga_modal) }}</small>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">

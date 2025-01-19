@@ -97,8 +97,6 @@ class LaporanServisController extends Controller
         $harga_jual = str_replace('.', '', $request->harga_jual);
         $laba = str_replace('.', '', $request->laba);
 
-        $pesanan_jas = DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->first();
-
         DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->update([
             'nama_pelanggan' => $request->nama_pelanggan,
             'jenis_servis' => $request->jenis_servis,
@@ -112,5 +110,10 @@ class LaporanServisController extends Controller
         ]);
 
         return redirect('/admin/laporan-keuangan/servis')->with('success', 'Data berhasil diubah.');
+    }
+
+    public function hapus($id){
+        DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->delete();
+        return redirect('/admin/laporan-keuangan/servis')->with('success', 'Data berhasil dihapus.');
     }
 }
