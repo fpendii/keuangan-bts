@@ -108,7 +108,7 @@
                     <label for="total_harga" class="form-label">Total Harga</label>
                     <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
                         name="total_harga" placeholder="Masukkan total harga"
-                        value="{{ old('total_harga', $transaksi->total_harga) }}" required>
+                        value="{{ old('total_harga', $total_harga) }}" required>
 
                     @error('total_harga')
                         <div class="invalid-feedback">{{ $message }}</div>

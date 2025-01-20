@@ -28,7 +28,12 @@ class LaporanJilidController extends Controller
     public function edit($id){
         $transaksi = DB::table('pesanan_jilid')->where('id_pesanan_jilid', $id)->first();
 
-        return view('admin.laporan-keuangan.jilid.edit', compact('transaksi'));
+        $data = [
+            'total_harga' => number_format($transaksi->total_harga, 0, ',', '.'),
+        ];
+
+
+        return view('admin.laporan-keuangan.jilid.edit', compact('transaksi'),$data);
     }
 
     public function hapus($id){

@@ -69,7 +69,7 @@
                 <div class="mb-3">
                     <label for="total_harga" class="form-label">Total Harga</label>
                     <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
-                        name="total_harga" placeholder="Masukkan total harga" value="{{ $transaksi->total_harga , old('total_harga') }}" required>
+                        name="total_harga" placeholder="Masukkan total harga" value="{{ old('total_harga', $total_harga) }}" required>
                     @error('total_harga')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

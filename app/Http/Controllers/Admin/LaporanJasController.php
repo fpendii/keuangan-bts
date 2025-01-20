@@ -62,7 +62,11 @@ class LaporanJasController extends Controller
     public function edit($id){
         $transaksi = DB::table('pesanan_jas')->where('id_pesanan_jas', $id)->first();
 
-        return view('admin.laporan-keuangan.jas.edit', compact('transaksi'));
+        $data = [
+            'total_harga' => number_format($transaksi->total_harga, 0, ',', '.'),
+        ];
+
+        return view('admin.laporan-keuangan.jas.edit', compact('transaksi'),$data);
     }
 
     public function update(Request $request, $id)

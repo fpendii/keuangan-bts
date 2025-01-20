@@ -59,7 +59,11 @@ class LaporanBimbelController extends Controller
     {
         $transaksi = DB::table('pesanan_bimbel')->where('id_pesanan_bimbel', $id)->first();
 
-        return view('admin.laporan-keuangan.bimbel.edit', compact('transaksi'));
+        $data = [
+            'total_harga' => number_format($transaksi->total_harga, 0, ',', '.'),
+        ];
+
+        return view('admin.laporan-keuangan.bimbel.edit', compact('transaksi'),$data);
     }
 
     public function update(Request $request, $id)
