@@ -11,8 +11,12 @@ class LaporanServisController extends Controller
     public function servis()
     {
         $transaksi = DB::table('pesanan_servis')->get();
+        $totalPendapatanBulanIni = DB::table('pesanan_servis')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('laba');
 
-        return view('admin.laporan-keuangan.servis.index',compact('transaksi'));
+        return view('admin.laporan-keuangan.servis.index',compact('transaksi', 'totalPendapatanBulanIni'));
     }
 
     public function tambah(){
