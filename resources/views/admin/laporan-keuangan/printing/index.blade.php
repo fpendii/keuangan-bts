@@ -26,10 +26,13 @@
                         </p>
                     </div>
                     <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="align-items-center">
 
                             <a href="{{ url('admin/order/' . $page . '/tambah') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-plus"></i> Tambah
+                            </a>
+                            <a href="{{ url('admin/order/' . $page . '/store/') }}" class="btn btn-success btn-sm">
+                                <i class="fa fa-plus"></i> Store
                             </a>
                         </div>
                     </div>
