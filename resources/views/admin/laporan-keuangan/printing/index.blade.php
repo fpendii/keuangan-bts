@@ -21,7 +21,8 @@
                     <div class="card-header pb-0">
                         <h6>Uang Kas</h6>
                         <p class="text-sm">
-                            <i class="fa  {{ $totalPendapatanBulanIni > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}" aria-hidden="true"></i>
+                            <i class="fa  {{ $totalPendapatanBulanIni > 0 ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' }}"
+                                aria-hidden="true"></i>
                             <span class="font-weight-bold">Rp. {{ number_format($totalPendapatanBulanIni) }}</span>
                         </p>
                     </div>
@@ -31,9 +32,38 @@
                             <a href="{{ url('admin/order/' . $page . '/tambah') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-plus"></i> Tambah
                             </a>
-                            <a href="{{ url('admin/order/' . $page . '/store/') }}" class="btn btn-success btn-sm">
+                            <!-- Tombol Store -->
+                            <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#storeModal">
                                 <i class="fa fa-plus"></i> Store
                             </a>
+                            <!-- Modal Store -->
+                            <div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="storeModalLabel">Konfirmasi Store</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin melakukan "Store" Pendatan Bulan ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ url('admin/order/' . $page . '/store/') }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                <!-- Tambahkan input jika diperlukan -->
+                                                <button type="submit" class="btn btn-success">Konfirmasi</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="card h-100">

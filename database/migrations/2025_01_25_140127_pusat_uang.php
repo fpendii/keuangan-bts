@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pusat_uang', function (Blueprint $table) {
             $table->id('id_pusat_uang');
             $table->string('total_uang');
-            $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
         });
     }
