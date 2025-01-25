@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class LaporanPrintingController extends Controller
 {
-    protected $id_divisi = 1;
+
     public function printing()
     {
         $transaksi = DB::table('pesanan_printing')->get();
@@ -106,5 +106,23 @@ class LaporanPrintingController extends Controller
         DB::table('pesanan_printing')->where('id_pesanan_printing', $id)->delete();
 
         return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function store(){
+
+        $totalPendapatanBulanIni = DB::table('pesanan_printing')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
+
+        DB::table('pusat_uang')->insert([
+            'bulan' => date('m'),
+            'tahun' => date('Y'),
+            'pendapatan' => $totalPendapatanBulanIni,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
     }
 }

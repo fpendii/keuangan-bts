@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('warna');
             $table->string('kertas');
             $table->string('total_harga');
+            $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');

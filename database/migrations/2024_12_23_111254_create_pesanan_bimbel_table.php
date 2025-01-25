@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_pelanggan');
             $table->string('judul_projek');
             $table->string('total_harga');
+            $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');

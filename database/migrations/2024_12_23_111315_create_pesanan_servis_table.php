@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('harga_modal');
             $table->string('harga_jual');
             $table->string('laba');
+            $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DivisiSeeder::class,
             TransaksiSeeder::class,
+            PusatUangSeeder::class,
             // Seeder lainnya yang ingin dijalankan
         ]);
     }

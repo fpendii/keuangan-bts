@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order/printing/edit/{id}', 'edit')->name('printing.edit');
         Route::put('/order/printing/update/{id}', 'update')->name('printing.update');
         Route::delete('/order/printing/hapus/{id}', 'hapus')->name('printing.hapus');
+        Route::get('/order/printing/store', 'store')->name('printing.store');
     });
 
     Route::controller(LaporanJilidController::class)->group(function () {

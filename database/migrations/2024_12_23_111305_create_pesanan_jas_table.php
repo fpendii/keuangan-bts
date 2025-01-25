@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('ukuran_jas');
             $table->integer('jumlah');
             $table->string('total_harga', 10, 2);
+            $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
 
             // $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan')->onDelete('cascade');
