@@ -10,8 +10,9 @@ class LaporanBimbelController extends Controller
 {
     public function bimbel()
     {
-        $transaksi = DB::table('pesanan_bimbel')->get();
+        $transaksi = DB::table('pesanan_bimbel')->where('status_store','proses')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_bimbel')
+            ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
@@ -101,5 +102,60 @@ class LaporanBimbelController extends Controller
         DB::table('pesanan_bimbel')->where('id_pesanan_bimbel', $id)->delete();
 
         return redirect()->to('admin/laporan-keuangan/bimbel')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function store()
+    {
+        $totalPendapatanBulanIni = DB::table('pesanan_bimbel')
+            ->where('status_store', 'proses')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
+
+        if($totalPendapatanBulanIni == 0){
+            return redirect()->to('admin/laporan-keuangan/bimbel')->with('error', 'Tidak ada transaksi untuk bulan ini');
+        }
+
+        $total_pusat_uang = DB::table('pusat_uang')->where('id_pusat_uang', 1)->select('total_uang')->first();
+
+        $totalPendapatanBulanIni = $totalPendapatanBulanIni + $total_pusat_uang->total_uang;
+
+        $pusat_uang_exists = DB::table('pusat_uang')->where('id_pusat_uang', 1)->exists();
+        $pesanan_bimbel = DB::table('pesanan_bimbel')
+            ->where('status_store', 'proses')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->get();
+
+        DB::beginTransaction();
+
+        try {
+            if (!$pusat_uang_exists) {
+                DB::table('pusat_uang')->insert([
+                    'total_uang' => $totalPendapatanBulanIni,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+                DB::table('pusat_uang')->where('id_pusat_uang', 1)->update([
+                    'total_uang' => $totalPendapatanBulanIni,
+                    'updated_at' => now(),
+                ]);
+            }
+
+            if ($pesanan_bimbel->isNotEmpty()) {
+                $ids = $pesanan_bimbel->pluck('id_pesanan_bimbel');
+                DB::table('pesanan_bimbel')->whereIn('id_pesanan_bimbel', $ids)->update([
+                    'status_store' => 'selesai',
+                    'updated_at' => now(),
+                ]);
+            }
+            DB::commit();
+
+            return redirect()->to('admin/laporan-keuangan/bimbel')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }

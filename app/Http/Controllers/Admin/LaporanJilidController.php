@@ -11,8 +11,9 @@ class LaporanJilidController extends Controller
 
     public function jilid()
     {
-        $transaksi = DB::table('pesanan_jilid')->get();
+        $transaksi = DB::table('pesanan_jilid')->where('status_store', 'proses')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_jilid')
+            ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
@@ -62,6 +63,8 @@ class LaporanJilidController extends Controller
             'jumlah' => $request->jumlah,
             'total_harga' => $total_harga,
             'dokumen' =>  $request->file('nama_dokument')->getClientOriginalName(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return redirect()->to('admin/laporan-keuangan/jilid')->with('success', 'Data berhasil disimpan');
@@ -94,20 +97,30 @@ class LaporanJilidController extends Controller
             'jumlah' => $request->jumlah,
             'total_harga' => $total_harga,
             'dokumen' =>  $nama_dokument,
+            'updated_at' => now(),
         ]);
 
         return redirect()->to('admin/laporan-keuangan/jilid')->with('success', 'Data berhasil diupdate');
     }
 
-    public function store(){
+    public function store()
+    {
         $totalPendapatanBulanIni = DB::table('pesanan_jilid')
+            ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
-        dd($totalPendapatanBulanIni);
+
+        if($totalPendapatanBulanIni == 0){
+            return redirect()->to('admin/laporan-keuangan/jilid')->with('error', 'Tidak ada transaksi untuk bulan ini');
+        }
+
+        $total_pusat_uang = DB::table('pusat_uang')->where('id_pusat_uang', 1)->select('total_uang')->first();
+
+        $totalPendapatanBulanIni = $totalPendapatanBulanIni + $total_pusat_uang->total_uang;
 
         $pusat_uang_exists = DB::table('pusat_uang')->where('id_pusat_uang', 1)->exists();
-        $pesanan_printing = DB::table('pesanan_printing')
+        $pesanan_jilid = DB::table('pesanan_jilid')
             ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
@@ -129,9 +142,9 @@ class LaporanJilidController extends Controller
                 ]);
             }
 
-            if ($pesanan_printing->isNotEmpty()) {
-                $ids = $pesanan_printing->pluck('id_pesanan_printing');
-                DB::table('pesanan_printing')->whereIn('id_pesanan_printing', $ids)->update([
+            if ($pesanan_jilid->isNotEmpty()) {
+                $ids = $pesanan_jilid->pluck('id_pesanan_jilid');
+                DB::table('pesanan_jilid')->whereIn('id_pesanan_jilid', $ids)->update([
                     'status_store' => 'selesai',
                     'updated_at' => now(),
                 ]);
@@ -139,7 +152,7 @@ class LaporanJilidController extends Controller
 
             DB::commit();
 
-            return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
+            return redirect()->to('admin/laporan-keuangan/jilid')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

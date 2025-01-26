@@ -52,6 +52,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order/bimbel/edit/{id}', 'edit')->name('bimbel.edit');
         Route::put('/order/bimbel/update/{id}', 'update')->name('bimbel.update');
         Route::delete('/order/bimbel/hapus/{id}', 'hapus')->name('bimbel.hapus');
+        Route::post('/order/bimbel/store', 'store')->name('bimbel.store');
     });
 
     Route::controller(LaporanJasController::class)->group(function () {
