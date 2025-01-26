@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class LaporanServisController extends Controller
 {
+    protected $table = 'pesanan_servis';
+    protected $id_name = 'id_pesanan_servis';
+    protected $redirect = 'admin/laporan-keuangan/servis';
     public function servis()
     {
-        $transaksi = DB::table('pesanan_servis')->get();
+        $transaksi = DB::table('pesanan_servis')->where('status_store', 'proses')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_servis')
+            ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('laba');
@@ -56,7 +60,7 @@ class LaporanServisController extends Controller
             'kelengkapan' => $request->kelengkapan,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
-            'laba' => $laba,
+            'total_harga' => $laba,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -69,7 +73,7 @@ class LaporanServisController extends Controller
         $data = [
             'harga_modal' => number_format($transaksi->harga_modal, 0, ',', '.'),
             'harga_jual' => number_format($transaksi->harga_jual, 0, ',', '.'),
-            'laba' => number_format($transaksi->laba, 0, ',', '.'),
+            'laba' => number_format($transaksi->total_harga, 0, ',', '.'),
         ];
 
         return view('admin.laporan-keuangan.servis.edit', compact('transaksi'), $data);
@@ -108,7 +112,7 @@ class LaporanServisController extends Controller
             'kelengkapan' => $request->kelengkapan,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
-            'laba' => $laba,
+            'total_harga' => $laba,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -119,5 +123,16 @@ class LaporanServisController extends Controller
     public function hapus($id){
         DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->delete();
         return redirect('/admin/laporan-keuangan/servis')->with('success', 'Data berhasil dihapus.');
+    }
+
+    public function store()
+    {
+        $result = $this->BaseStore($this->table, $this->id_name);
+
+        if ($result['status']) {
+            return redirect()->to($this->redirect)->with('success', $result['message']);
+        } else {
+            return redirect()->back()->with('error', $result['message']);
+        }
     }
 }

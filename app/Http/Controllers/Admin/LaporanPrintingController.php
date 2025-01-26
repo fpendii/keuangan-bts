@@ -19,9 +19,6 @@ class LaporanPrintingController extends Controller
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
 
-
-
-
         return view('admin.laporan-keuangan.printing.index', compact('transaksi', 'totalPendapatanBulanIni'));
     }
 

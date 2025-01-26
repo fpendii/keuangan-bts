@@ -62,6 +62,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order/jas/edit/{id}', 'edit')->name('jas.edit');
         Route::put('/order/jas/update/{id}', 'update')->name('jas.update');
         Route::delete('/order/jas/hapus/{id}', 'hapus')->name('jas.hapus');
+        Route::post('/order/jas/store', 'store')->name('jas.store');
     });
 
     Route::controller(LaporanServisController::class)->group(function () {
@@ -71,6 +72,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order/servis/edit/{id}', 'edit')->name('servis.edit');
         Route::put('/order/servis/update/{id}', 'update')->name('servis.update');
         Route::delete('/order/servis/hapus/{id}', 'hapus')->name('servis.hapus');
+        Route::post('/order/servis/store', 'store')->name('servis.store');
     });
 });
 

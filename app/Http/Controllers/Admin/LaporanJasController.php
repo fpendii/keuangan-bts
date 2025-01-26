@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class LaporanJasController extends Controller
 {
+    protected $table = 'pesanan_jas';
+    protected $id_name = 'id_pesanan_jas';
+    protected $redirect = 'admin/laporan-keuangan/jas';
+
     public function jas()
     {
-        $transaksi = DB::table('pesanan_jas')->get();
+        $transaksi = DB::table('pesanan_jas')->where('status_store', 'proses')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_jas')
-        ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
-        ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
-        ->sum('total_harga');
+            ->where('status_store', 'proses')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
 
         return view('admin.laporan-keuangan.jas.index', compact('transaksi', 'totalPendapatanBulanIni'));
     }
@@ -59,14 +64,15 @@ class LaporanJasController extends Controller
         return redirect()->to('admin/laporan-keuangan/jas')->with('success', 'Data berhasil disimpan');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $transaksi = DB::table('pesanan_jas')->where('id_pesanan_jas', $id)->first();
 
         $data = [
             'total_harga' => number_format($transaksi->total_harga, 0, ',', '.'),
         ];
 
-        return view('admin.laporan-keuangan.jas.edit', compact('transaksi'),$data);
+        return view('admin.laporan-keuangan.jas.edit', compact('transaksi'), $data);
     }
 
     public function update(Request $request, $id)
@@ -108,5 +114,16 @@ class LaporanJasController extends Controller
         DB::table('pesanan_jas')->where('id_pesanan_jas', $id)->delete();
 
         return redirect()->to('admin/laporan-keuangan/jas')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function store()
+    {
+        $result = $this->BaseStore($this->table, $this->id_name);
+
+        if ($result['status']) {
+            return redirect()->to($this->redirect)->with('success', $result['message']);
+        } else {
+            return redirect()->back()->with('error', $result['message']);
+        }
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama_pelanggan');
             $table->string('harga_modal');
             $table->string('harga_jual');
-            $table->string('laba');
+            $table->string('total_harga');
             $table->enum('status_store', ['proses', 'selesai']);
             $table->timestamps();
 
