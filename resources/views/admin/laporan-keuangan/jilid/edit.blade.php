@@ -19,6 +19,7 @@
             <form action="{{ url('admin/order/' . $page . '/update/' . $transaksi->id_pesanan_jilid) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
 
                 <!-- Bagian Tambah Order -->
                 <div id="order-fields" style="display: block;">

@@ -12,9 +12,9 @@ class LaporanPrintingController extends Controller
 
     public function printing()
     {
-        $transaksi = DB::table('pesanan_printing')->where('status_store','proses')->get();
+        $transaksi = DB::table('pesanan_printing')->where('status_store', 'proses')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_printing')
-            ->where('status_store','proses')
+            ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
@@ -112,50 +112,57 @@ class LaporanPrintingController extends Controller
     }
 
     public function store()
-{
-    $totalPendapatanBulanIni = DB::table('pesanan_printing')
-        ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
-        ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
-        ->sum('total_harga');
-
-    $pusat_uang_exists = DB::table('pusat_uang')->where('id_pusat_uang', 1)->exists();
-    $pesanan_printing = DB::table('pesanan_printing')
-        ->where('status_store', 'proses')
-        ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
-        ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
-        ->get();
-
-    DB::beginTransaction();
-
-    try {
-        if (!$pusat_uang_exists) {
-            DB::table('pusat_uang')->insert([
-                'total_uang' => $totalPendapatanBulanIni,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        } else {
-            DB::table('pusat_uang')->where('id_pusat_uang', 1)->update([
-                'total_uang' => $totalPendapatanBulanIni,
-                'updated_at' => now(),
-            ]);
+    {
+        $totalPendapatanBulanIni = DB::table('pesanan_printing')
+            ->where('status_store', 'proses')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->sum('total_harga');
+        if($totalPendapatanBulanIni == 0){
+            return redirect()->to('admin/laporan-keuangan/printing')->with('error', 'Tidak ada transaksi untuk bulan ini');
         }
 
-        if ($pesanan_printing->isNotEmpty()) {
-            $ids = $pesanan_printing->pluck('id_pesanan_printing');
-            DB::table('pesanan_printing')->whereIn('id_pesanan_printing', $ids)->update([
-                'status_store' => 'selesai',
-                'updated_at' => now(),
-            ]);
+        $total_pusat_uang = DB::table('pusat_uang')->where('id_pusat_uang', 1)->select('total_uang')->first();
+
+        $totalPendapatanBulanIni = $totalPendapatanBulanIni + $total_pusat_uang->total_uang;
+
+        $pusat_uang_exists = DB::table('pusat_uang')->where('id_pusat_uang', 1)->exists();
+        $pesanan_printing = DB::table('pesanan_printing')
+            ->where('status_store', 'proses')
+            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
+            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->get();
+
+        DB::beginTransaction();
+
+        try {
+            if (!$pusat_uang_exists) {
+                DB::table('pusat_uang')->insert([
+                    'total_uang' => $totalPendapatanBulanIni,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+                DB::table('pusat_uang')->where('id_pusat_uang', 1)->update([
+                    'total_uang' => $totalPendapatanBulanIni,
+                    'updated_at' => now(),
+                ]);
+            }
+
+            if ($pesanan_printing->isNotEmpty()) {
+                $ids = $pesanan_printing->pluck('id_pesanan_printing');
+                DB::table('pesanan_printing')->whereIn('id_pesanan_printing', $ids)->update([
+                    'status_store' => 'selesai',
+                    'updated_at' => now(),
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        DB::commit();
-
-        return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Hasil Pendatapan Bulan Ini Berhasil Disimpan');
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
-}
-
 }

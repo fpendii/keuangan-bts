@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order/jilid/edit/{id}', 'edit')->name('jilid.edit');
         Route::put('/order/jilid/update/{id}', 'update')->name('jilid.update');
         Route::delete('/order/jilid/hapus/{id}', 'hapus')->name('jilid.hapus');
+        Route::post('/order/jilid/store', 'store')->name('jilid.store');
     });
 
     Route::controller(LaporanBimbelController::class)->group(function () {
