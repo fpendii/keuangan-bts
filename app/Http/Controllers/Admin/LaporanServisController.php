@@ -18,7 +18,7 @@ class LaporanServisController extends Controller
             ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
-            ->sum('laba');
+            ->sum('total_harga');
 
         return view('admin.laporan-keuangan.servis.index',compact('transaksi', 'totalPendapatanBulanIni'));
     }

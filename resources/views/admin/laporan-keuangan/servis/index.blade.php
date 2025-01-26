@@ -178,7 +178,7 @@
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <span class="text-xs font-weight-bold"> Rp.
-                                                    {{ number_format($item->laba) }} </span>
+                                                    {{ number_format($item->total_harga) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <!-- Tombol Edit -->

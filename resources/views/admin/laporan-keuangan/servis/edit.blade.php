@@ -83,7 +83,7 @@
                 <div class="mb-3">
                     <label for="laba" class="form-label">Laba</label>
                     <input type="number" class="form-control @error('laba') is-invalid @enderror" id="laba"
-                        name="laba" placeholder="Masukkan Laba" value="{{ $laba , old('laba') }}" required>
+                        name="laba" placeholder="Masukkan Laba" value="{{ $total_harga , old('laba') }}" required>
                     @error('laba')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
