@@ -68,25 +68,7 @@
                     @enderror
                 </div>
 
-                <!-- Jumlah Lembar -->
-                <div class="mb-3">
-                    <label for="jumlah" class="form-label">Jumlah Lembar</label>
-                    <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah"
-                        name="jumlah" placeholder="Masukkan jumlah lembar dokumen" value="{{ old('jumlah') }}" required>
-                    @error('jumlah')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
 
-                <!-- Total Harga -->
-                <div class="mb-3">
-                    <label for="total_harga" class="form-label">Total Harga</label>
-                    <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
-                        name="total_harga" placeholder="Masukkan total harga" value="{{ old('total_harga') }}" required>
-                    @error('total_harga')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
 
 
 
