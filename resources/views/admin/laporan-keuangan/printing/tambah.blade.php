@@ -34,7 +34,7 @@
                     <div class="mb-3">
                         <label for="dokumen" class="form-label">Unggah Dokumen</label>
                         <input type="file" class="form-control @error('dokumen') is-invalid @enderror"
-                            id="dokumen" name="dokumen" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
+                            id="dokumen" name="dokumen[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
                         <small class="text-muted">Format yang diperbolehkan: PDF, Word, Excel, PowerPoint</small>
                         @error('dokumen')
                             <div class="invalid-feedback">{{ $message }}</div>

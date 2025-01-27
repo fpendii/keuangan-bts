@@ -30,15 +30,15 @@ class LaporanPrintingController extends Controller
 
     public function simpan(Request $request)
     {
+
         $request->validate([
             'nama_pelanggan' => 'required',
             'warna' => 'required',
             'kertas' => 'required',
             'jumlah' => 'required|numeric|min:1',
             'total_harga' => 'required|numeric|min:1',
-            'dokumen' => 'required_if:mode,pengeluaran|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx',
+            'dokumen.*' => 'required|mimes:jpg,png,pdf,docx|max:2048',
         ], [
-            'dokumen.required_if' => 'Dokumen harus diunggah untuk transaksi pengeluaran.',
             'dokumen.file' => 'Dokumen harus berupa file.',
             'dokumen.mimes' => 'Format dokumen yang diperbolehkan: PDF, Word, Excel, PowerPoint.',
             'total_harga.required' => 'Total harga harus diisi.',
@@ -54,13 +54,29 @@ class LaporanPrintingController extends Controller
 
         $total_harga = str_replace('.', '', $request->total_harga);
 
+        $fileNames = ''; // Inisialisasi sebagai string kosong
+
+        if ($request->hasFile('dokumen')) {
+            $no = 1;
+            foreach ($request->file('dokumen') as $file) {
+                // Simpan file
+                $name = '[' . $no++. '] ' . $file->getClientOriginalName();
+
+                // Tambahkan nama file ke string
+                $fileNames .= $name . ', '; // Gunakan pemisah seperti ";" atau "," sesuai kebutuhan
+            }
+        }
+
+        // Hapus pemisah terakhir (opsional)
+        $fileNames = rtrim($fileNames, ';');
+
         DB::table('pesanan_printing')->insert([
             'nama_pelanggan' => $request->nama_pelanggan,
             'warna' => $request->warna,
             'kertas' => $request->kertas,
             'jumlah' => $request->jumlah,
             'total_harga' => $total_harga,
-            'dokumen' => $request->file('dokumen')->getClientOriginalName(),
+            'dokumen' => $fileNames,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -115,7 +131,7 @@ class LaporanPrintingController extends Controller
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
             ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
             ->sum('total_harga');
-        if($totalPendapatanBulanIni == 0){
+        if ($totalPendapatanBulanIni == 0) {
             return redirect()->to('admin/laporan-keuangan/printing')->with('error', 'Tidak ada transaksi untuk bulan ini');
         }
 

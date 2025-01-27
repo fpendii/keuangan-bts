@@ -141,7 +141,7 @@
                                             Dokument</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Berwarna/Tidak Berwarna</th>
+                                            Warna</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Jumlah</th>
@@ -164,12 +164,12 @@
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
-                                                <div class="avatar-group mt-2">
-                                                    <small>{{ $item->dokumen }}</small>
+                                                <div class="avatar-group mt-1">
+                                                    <small style="font-size: 10px">{{ str::limit($item->dokumen, 20, '...') ?? $item->dokumen }}</small>
                                                 </div>
                                             </td>
                                             <td class="w-30 text-wrap">
-                                                <div class="avatar-group mt-2">
+                                                <div class="avatar-group mt-1">
                                                     <small>{{ $item->warna }}</small>
                                                 </div>
                                             </td>
