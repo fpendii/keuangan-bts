@@ -72,18 +72,6 @@
                     @enderror
                 </div>
 
-                <!-- Total Harga -->
-                <div class="mb-3">
-                    <label for="total_harga" class="form-label">Total Harga</label>
-                    <input type="number" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga"
-                        name="total_harga" placeholder="Masukkan total harga" value="{{ old('total_harga') }}" required>
-                    @error('total_harga')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-
-
                 <!-- Tombol Simpan -->
                 <div class="d-flex justify-content-between">
                     <a href="{{ url('admin/laporan-keuangan/'.$page) }}" class="btn btn-secondary">

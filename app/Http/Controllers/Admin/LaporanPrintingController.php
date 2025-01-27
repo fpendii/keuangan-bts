@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TransaksiRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Imagick;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanPrintingController extends Controller
 {
@@ -36,20 +36,12 @@ class LaporanPrintingController extends Controller
             'warna' => 'required',
             'kertas' => 'required',
             'dokumen.*' => 'required|file|mimes:jpg,png,pdf,docx|max:2048',
-        ], [
-            'dokumen.required' => 'Dokumen harus diunggah.',
-            'dokumen.file' => 'Dokumen harus berupa file.',
-            'dokumen.mimes' => 'Format dokumen yang diperbolehkan: PDF, Word, atau Gambar.',
-            'warna.required' => 'Warna harus diisi.',
-            'kertas.required' => 'Kertas harus diisi.',
-            'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
         ]);
 
-        // Default harga per lembar
         $hargaPerlembar = $request->warna === 'Color' ? 500 : 400;
 
         if ($request->kertas === 'Ya') {
-            $hargaPerlembar -= 100; // Diskon untuk kertas sendiri
+            $hargaPerlembar -= 100;
         }
 
         $totalHalaman = 0;
@@ -61,39 +53,46 @@ class LaporanPrintingController extends Controller
                 $name = '[' . $no++ . '] ' . $file->getClientOriginalName();
                 $fileNames .= $name . ', ';
 
-                // Hitung jumlah halaman jika file adalah PDF
                 if ($file->getClientOriginalExtension() === 'pdf') {
                     $parser = new \Smalot\PdfParser\Parser();
                     $pdf = $parser->parseFile($file->getPathname());
                     $halaman = $pdf->getDetails()['Pages'] ?? 0;
                     $totalHalaman += $halaman;
                 } else {
-                    // Untuk dokumen non-PDF, dianggap 1 lembar
                     $totalHalaman++;
                 }
             }
         }
 
-        // Hapus pemisah terakhir dari daftar file
         $fileNames = rtrim($fileNames, ', ');
-
-        // Hitung total harga
         $totalHarga = $totalHalaman * $hargaPerlembar;
 
-        // Simpan ke database
-        DB::table('pesanan_printing')->insert([
+        $data = [
             'nama_pelanggan' => $request->nama_pelanggan,
             'warna' => $request->warna,
             'kertas' => $request->kertas,
             'jumlah' => $totalHalaman,
             'total_harga' => $totalHarga,
             'dokumen' => $fileNames,
+        ];
+
+        DB::table('pesanan_printing')->insert(array_merge($data, [
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ]));
 
-        return redirect()->to('admin/laporan-keuangan/printing')->with('success', 'Transaksi berhasil disimpan.');
+        // Generate PDF dari data
+        $pdf = Pdf::loadView('admin.laporan-keuangan.printing.invoice', $data);
+
+        // Simpan file PDF di folder public/invoices
+        $pdfPath = public_path('invoices/' . time() . '_invoice.pdf');
+        $pdf->save($pdfPath);
+
+        return redirect()
+            ->to('admin/laporan-keuangan/printing')
+            ->with('success', 'Transaksi berhasil disimpan. Struk disimpan di ' . $pdfPath);
     }
+
 
 
     public function edit($id)

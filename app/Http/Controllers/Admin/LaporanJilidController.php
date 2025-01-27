@@ -44,6 +44,7 @@ class LaporanJilidController extends Controller
     }
 
     public function simpan(Request $request){
+
         $request->validate([
             'nama_pelanggan' => 'required',
             'jenis_jilid' => 'required',
@@ -55,7 +56,14 @@ class LaporanJilidController extends Controller
             'nama_dokumen.mimes' => 'Dokumen harus berupa file PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX',
         ]);
 
-        $total_harga = str_replace('.', '', $request->total_harga);
+        if($request->jenis_jilid === 'Hard Cover'){
+            $hargaJilid = 35000;
+        } else {
+            $hargaJilid = 20000;
+        }
+
+        $total_harga = $hargaJilid * $request->jumlah;
+
 
         DB::table('pesanan_jilid')->insert([
             'nama_pelanggan' => $request->nama_pelanggan,
