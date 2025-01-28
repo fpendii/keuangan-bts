@@ -1,3 +1,11 @@
+@if (session('invoice_path'))
+    <script>
+        window.onload = function() {
+            window.location.href = "{{ route('download.invoice') }}";
+        };
+    </script>
+@endif
+
 @if (session('success'))
     <div id="alert-success" class="alert alert-success text-center" role="alert">
         <strong>Success!</strong> {{ session('success') }}

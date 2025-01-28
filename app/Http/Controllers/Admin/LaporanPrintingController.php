@@ -81,19 +81,21 @@ class LaporanPrintingController extends Controller
             'updated_at' => now(),
         ]));
 
-        // Generate PDF dari data
+        // Generate PDF
         $pdf = Pdf::loadView('admin.laporan-keuangan.printing.invoice', $data);
+        $fileName = 'invoice_' . now()->format('Ymd_His') . '.pdf';
 
-        // Simpan file PDF di folder public/invoices
-        $pdfPath = public_path('invoices/' . time() . '_invoice.pdf');
-        $pdf->save($pdfPath);
+        // Simpan PDF ke storage
+        $filePath = storage_path('app/public/invoices/' . $fileName);
+        $pdf->save($filePath);
 
-        return redirect()
-            ->to('admin/laporan-keuangan/printing')
-            ->with('success', 'Transaksi berhasil disimpan. Struk disimpan di ' . $pdfPath);
+        // Simpan path ke session
+        session(['invoice_path' => $filePath]);
+
+        // Redirect ke halaman sebelumnya
+        return redirect()->to('admin/laporan-keuangan/printing')
+            ->with('success', 'Data berhasil disimpan. PDF akan diunduh otomatis.');
     }
-
-
 
     public function edit($id)
     {

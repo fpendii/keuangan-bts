@@ -19,6 +19,16 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/sign-up', 'signup')->name('signup');
 });
 
+Route::get('/admin/download-invoice', function () {
+    $filePath = session('invoice_path');
+    if ($filePath && file_exists($filePath)) {
+        session()->forget('invoice_path');
+        return response()->download($filePath)->deleteFileAfterSend();
+    }
+    abort(404, 'File tidak ditemukan.');
+})->name('download.invoice');
+
+
 Route::prefix('admin')->group(function () {
     Route::controller(BerandaAdminController::class)->group(function () {
         Route::get('/beranda', 'index')->name('beranda');
@@ -75,5 +85,3 @@ Route::prefix('admin')->group(function () {
         Route::post('/order/servis/store', 'store')->name('servis.store');
     });
 });
-
-

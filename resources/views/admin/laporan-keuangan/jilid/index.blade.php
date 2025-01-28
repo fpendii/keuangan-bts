@@ -107,7 +107,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-lg-6 col-7">
-                                <h6>Printing Orders</h6>
+                                <h6>{{ Str::of($page)->replace('-', ' ')->title() }} Orders</h6>
                                 <p class="text-sm mb-0">
                                     Data Orders {{ Str::of($page)->replace('-', ' ')->title() }} Perbulan
                                 </p>

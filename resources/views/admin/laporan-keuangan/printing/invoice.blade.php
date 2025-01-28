@@ -1,82 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Print</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            width: 280px;
+            position: relative;
         }
+
         .invoice {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 10px;
+            width: 100%;
+            border: none;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            /* Ensure invoice content is above the logo */
         }
+
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        .header h1 {
+
+        .header p {
+            font-size: 12px;
             margin: 0;
         }
-        .details, .summary {
-            margin-bottom: 20px;
+
+        .details,
+        .summary {
+            font-size: 12px;
+            line-height: 1.6;
         }
-        .details table, .summary table {
+
+        .details table,
+        .summary table {
             width: 100%;
-            border-collapse: collapse;
+            border-spacing: 0;
+            margin-top: 5px;
         }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+
+        table td {
+            padding: 5px 0;
         }
+
+        table td:nth-child(1) {
+            width: 120px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            font-size: 10px;
+            margin: 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .line {
+            border-top: 1px solid #000;
+            margin: 10px 0;
+        }
+
+        /* Logo Styling */
+
     </style>
 </head>
+
 <body>
+
     <div class="invoice">
         <div class="header">
-            <h1>Struk Transaksi</h1>
+            <p>Batuah Talenta Semesta</p>
             <p>{{ now()->format('d-m-Y H:i:s') }}</p>
         </div>
         <div class="details">
-            <h3>Detail Pelanggan</h3>
             <table>
                 <tr>
-                    <th>Nama Pelanggan</th>
-                    <td>{{ $nama_pelanggan }}</td>
+                    <td>Nama Pelanggan</td>
+                    <td>: {{ $nama_pelanggan }}</td>
                 </tr>
                 <tr>
-                    <th>Warna</th>
-                    <td>{{ $warna }}</td>
+                    <td>Warna</td>
+                    <td>: {{ $warna }}</td>
                 </tr>
                 <tr>
-                    <th>Jenis Kertas</th>
-                    <td>{{ $kertas }}</td>
+                    <td>Jenis Kertas</td>
+                    <td>: {{ $kertas }}</td>
                 </tr>
             </table>
         </div>
+        <div class="line"></div>
         <div class="summary">
-            <h3>Ringkasan Transaksi</h3>
             <table>
                 <tr>
-                    <th>Jumlah Lembar</th>
-                    <td>{{ $jumlah }}</td>
+                    <td>Jumlah Lembar</td>
+                    <td>: {{ $jumlah }}</td>
                 </tr>
                 <tr>
-                    <th>Total Harga</th>
-                    <td>Rp {{ number_format($total_harga, 0, ',', '.') }}</td>
+                    <td>Total Harga</td>
+                    <td>: Rp {{ number_format($total_harga, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
-                    <th>Dokumen</th>
-                    <td>{{ $dokumen }}</td>
+                    <td>Dokumen</td>
+                    <td>: {{ $dokumen }}</td>
                 </tr>
             </table>
+        </div>
+        <div class="line"></div>
+        <div class="footer">
+            <p class="bold">TERIMA KASIH</p>
+            <p>Silakan simpan struk ini sebagai bukti transaksi.</p>
         </div>
     </div>
 </body>
+
 </html>
