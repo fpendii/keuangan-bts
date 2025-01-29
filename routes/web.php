@@ -24,6 +24,9 @@ Route::controller(InvoiceController::class)->group(function () {
     Route::get('/download/invoice', 'downloadInvoice');
     Route::get('/download/invoice/printing/{id}', 'downloadInvoicePrinting')->name('invoice.printing');
     Route::get('/download/invoice/jilid/{id}', 'downloadInvoiceJilid')->name('invoice.jilid');
+    Route::get('/download/invoice/bimbel/{id}', 'downloadInvoiceBimbel')->name('invoice.bimbel');
+    Route::get('/download/invoice/jas/{id}', 'downloadInvoiceJas')->name('invoice.jas');
+    Route::get('/download/invoice/servis/{id}', 'downloadInvoiceServis')->name('invoice.servis');
 });
 
 Route::prefix('admin')->group(function () {

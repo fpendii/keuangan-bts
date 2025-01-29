@@ -68,4 +68,27 @@ class InvoiceController extends Controller
         // Mengembalikan response untuk mendownload langsung tanpa menyimpan
         return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
     }
+
+    public function downloadInvoiceBimbel($id)
+    {
+        $dataPesanan = DB::table('pesanan_bimbel')->where('id_pesanan_bimbel', $id)->first();
+
+        if (!$dataPesanan) {
+            return redirect()->back()->with('error', 'Data pesanan tidak ditemukan.');
+        }
+
+        $data = [
+            'nama_pelanggan' => $dataPesanan->nama_pelanggan,
+            'jenis_bimbel' => $dataPesanan->jenis_bimbel,
+            'judul_projek' => $dataPesanan->judul_projek,
+            'total_harga' => $dataPesanan->total_harga,
+            'created_at' => $dataPesanan->created_at,
+        ];
+
+        // Generate PDF tanpa menyimpan ke file
+        $pdf = Pdf::loadView('admin.laporan-keuangan.bimbel.invoice', $data);
+
+        // Mengembalikan response untuk mendownload langsung tanpa menyimpan
+        return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
+    }
 }
