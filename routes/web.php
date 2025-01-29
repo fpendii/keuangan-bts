@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LaporanJilidController;
 use App\Http\Controllers\Admin\LaporanBimbelController;
 use App\Http\Controllers\Admin\LaporanJasController;
 use App\Http\Controllers\Admin\LaporanServisController;
+use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,21 +20,16 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/sign-up', 'signup')->name('signup');
 });
 
-Route::get('/admin/download-invoice', function () {
-    $filePath = session('invoice_path');
-    if ($filePath && file_exists($filePath)) {
-        session()->forget('invoice_path');
-        return response()->download($filePath)->deleteFileAfterSend();
-    }
-    abort(404, 'File tidak ditemukan.');
-})->name('download.invoice');
-
+Route::controller(InvoiceController::class)->group(function () {
+    Route::get('/download/invoice', 'downloadInvoice');
+    Route::get('/download/invoice/printing/{id}', 'downloadInvoicePrinting')->name('invoice.printing');
+});
 
 Route::prefix('admin')->group(function () {
+
     Route::controller(BerandaAdminController::class)->group(function () {
         Route::get('/beranda', 'index')->name('beranda');
     });
-
 
     Route::controller(LaporanPrintingController::class)->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
@@ -43,6 +39,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/order/printing/update/{id}', 'update')->name('printing.update');
         Route::delete('/order/printing/hapus/{id}', 'hapus')->name('printing.hapus');
         Route::post('/order/printing/store', 'store')->name('printing.store');
+        Route::get('/order/printing/cetak/{id}', 'cetak')->name('printing.cetak');
     });
 
     Route::controller(LaporanJilidController::class)->group(function () {

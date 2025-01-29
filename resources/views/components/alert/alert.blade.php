@@ -1,7 +1,7 @@
 @if (session('invoice_path'))
     <script>
         window.onload = function() {
-            window.location.href = "{{ route('download.invoice') }}";
+            window.location.href = "{{ url('download/invoice') }}";
         };
     </script>
 @endif
