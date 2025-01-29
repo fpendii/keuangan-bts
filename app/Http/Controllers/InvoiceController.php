@@ -44,4 +44,28 @@ class InvoiceController extends Controller
         // Mengembalikan response untuk mendownload langsung tanpa menyimpan
         return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
     }
+
+    public function downloadInvoiceJilid($id)
+    {
+        $dataPesanan = DB::table('pesanan_jilid')->where('id_pesanan_jilid', $id)->first();
+
+        if (!$dataPesanan) {
+            return redirect()->back()->with('error', 'Data pesanan tidak ditemukan.');
+        }
+
+        $data = [
+            'nama_pelanggan' => $dataPesanan->nama_pelanggan,
+            'jenis_jilid' => $dataPesanan->jenis_jilid,
+            'jumlah' => $dataPesanan->jumlah,
+            'total_harga' => $dataPesanan->total_harga,
+            'dokumen' => $dataPesanan->dokumen,
+            'created_at' => $dataPesanan->created_at,
+        ];
+
+        // Generate PDF tanpa menyimpan ke file
+        $pdf = Pdf::loadView('admin.laporan-keuangan.jilid.invoice', $data);
+
+        // Mengembalikan response untuk mendownload langsung tanpa menyimpan
+        return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
+    }
 }

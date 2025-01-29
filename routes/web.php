@@ -23,6 +23,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(InvoiceController::class)->group(function () {
     Route::get('/download/invoice', 'downloadInvoice');
     Route::get('/download/invoice/printing/{id}', 'downloadInvoicePrinting')->name('invoice.printing');
+    Route::get('/download/invoice/jilid/{id}', 'downloadInvoiceJilid')->name('invoice.jilid');
 });
 
 Route::prefix('admin')->group(function () {

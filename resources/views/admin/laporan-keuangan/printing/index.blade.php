@@ -187,6 +187,7 @@
                                                     class="btn btn-secondary btn-sm">
                                                     <i class="fa fa-print"></i>
                                                 </a>
+
                                                 <!-- Tombol Edit -->
                                                 <a href="{{ url('admin/order/printing/edit/' . $item->id_pesanan_printing) }}"
                                                     class="btn btn-warning btn-sm">

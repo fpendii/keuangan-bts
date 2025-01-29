@@ -174,15 +174,20 @@
                                                     {{ number_format($item->total_harga) }} </span>
                                             </td>
                                             <td class="align-middle text-center">
+                                                <!-- Tombol Cetak Struk -->
+                                                <a target="_blank" href="{{ url('download/invoice/'.$page. '/' . $item->id_pesanan_jas) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    <i class="fa fa-print"></i>
+                                                </a>
                                                 <!-- Tombol Edit -->
                                                 <a href="{{ url('admin/order/jas/edit/' . $item->id_pesanan_jas) }}"
                                                     class="btn btn-warning btn-sm">
-                                                    <i class="fa fa-pencil-alt"> Edit</i>
+                                                    <i class="fa fa-pencil-alt"></i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#deleteModal{{ $item->id_pesanan_jas }}">
-                                                    <i class="fa fa-trash"></i> Hapus
+                                                    <i class="fa fa-trash"></i>
                                                 </button>
 
                                                 <!-- Modal -->
