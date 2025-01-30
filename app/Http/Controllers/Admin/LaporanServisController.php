@@ -16,8 +16,8 @@ class LaporanServisController extends Controller
         $transaksi = DB::table('pesanan_servis')->where('status_store', 'proses')->orderBy('created_at', 'desc')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_servis')
             ->where('status_store', 'proses')
-            ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
-            ->whereYear('created_at', date('Y')) // Filter berdasarkan tahun
+            ->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
             ->sum('total_harga');
 
         return view('admin.laporan-keuangan.servis.index',compact('transaksi', 'totalPendapatanBulanIni'));
