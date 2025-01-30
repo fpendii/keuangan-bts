@@ -79,15 +79,6 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <label for="laba" class="form-label">Laba</label>
-                    <input type="number" class="form-control @error('laba') is-invalid @enderror" id="laba"
-                        name="laba" placeholder="Masukkan Laba" value="{{ old('laba') }}" required>
-                    @error('laba')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
                 <div class="d-flex justify-content-between">
                     <a href="{{ url('admin/laporan-keuangan/'.$page) }}" class="btn btn-secondary">
                         <i class="fa fa-arrow-left"></i> Kembali

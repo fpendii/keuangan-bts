@@ -45,17 +45,17 @@
 
       </div>
     </div>
-    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+    {{-- <div class="col-lg-6 col-12 mt-4 mt-lg-0">
       <div class="card shadow h-100">
         <div class="card-header pb-0 p-3">
-          <h6 class="mb-0">Reviews</h6>
+          <h6 class="mb-0">History Stor Uang Kas</h6>
         </div>
         <div class="card-body pb-0 p-3">
           <ul class="list-group">
             <li class="list-group-item border-0 d-flex align-items-center px-0 mb-0">
               <div class="w-100">
                 <div class="d-flex mb-2">
-                  <span class="me-2 text-sm font-weight-bold text-dark">Positive Reviews</span>
+                  <span class="me-2 text-sm font-weight-bold text-dark">History Stor Uang</span>
                   <span class="ms-auto text-sm font-weight-bold">80%</span>
                 </div>
                 <div>
@@ -104,6 +104,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 @endsection

@@ -13,7 +13,7 @@ class LaporanPrintingController extends Controller
 
     public function printing()
     {
-        $transaksi = DB::table('pesanan_printing')->where('status_store', 'proses')->get();
+        $transaksi = DB::table('pesanan_printing')->where('status_store', 'proses')->orderBy('created_at', 'desc')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_printing')
             ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan

@@ -14,7 +14,7 @@ class LaporanJasController extends Controller
 
     public function jas()
     {
-        $transaksi = DB::table('pesanan_jas')->where('status_store', 'proses')->get();
+        $transaksi = DB::table('pesanan_jas')->where('status_store', 'proses')->orderBy('created_at', 'desc')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_jas')
             ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan

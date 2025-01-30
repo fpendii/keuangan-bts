@@ -91,4 +91,48 @@ class InvoiceController extends Controller
         // Mengembalikan response untuk mendownload langsung tanpa menyimpan
         return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
     }
+
+    public function downloadInvoiceJas($id) {
+        $dataPesanan = DB::table('pesanan_jas')->where('id_pesanan_jas', $id)->first();
+
+        if (!$dataPesanan) {
+            return redirect()->back()->with('error', 'Data pesanan tidak ditemukan.');
+        }
+
+        $data = [
+            'nama_pelanggan' => $dataPesanan->nama_pelanggan,
+            'ukuran_jas' => $dataPesanan->ukuran_jas,
+            'jumlah' => $dataPesanan->jumlah,
+            'total_harga' => $dataPesanan->total_harga,
+            'created_at' => $dataPesanan->created_at,
+        ];
+
+        // Generate PDF tanpa menyimpan ke file
+        $pdf = Pdf::loadView('admin.laporan-keuangan.jas.invoice', $data);
+
+        // Mengembalikan response untuk mendownload langsung tanpa menyimpan
+        return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
+    }
+
+    public function downloadInvoiceServis($id) {
+        $dataPesanan = DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->first();
+
+        if (!$dataPesanan) {
+            return redirect()->back()->with('error', 'Data pesanan tidak ditemukan.');
+        }
+
+        $data = [
+            'nama_pelanggan' => $dataPesanan->nama_pelanggan,
+            'unit_servis' => $dataPesanan->unit_servis,
+            'kelengkapan' => $dataPesanan->kelengkapan,
+            'jenis_servis' => $dataPesanan->jenis_servis,
+            'total_harga' => $dataPesanan->total_harga,
+            'created_at' => $dataPesanan->created_at,
+        ];
+        // Generate PDF tanpa menyimpan ke file
+        $pdf = Pdf::loadView('admin.laporan-keuangan.servis.invoice', $data);
+
+        // Mengembalikan response untuk mendownload langsung tanpa menyimpan
+        return $pdf->download('invoice_' . now()->format('Ymd_His') . '.pdf');
+    }
 }

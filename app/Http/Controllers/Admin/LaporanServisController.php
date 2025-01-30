@@ -13,7 +13,7 @@ class LaporanServisController extends Controller
     protected $redirect = 'admin/laporan-keuangan/servis';
     public function servis()
     {
-        $transaksi = DB::table('pesanan_servis')->where('status_store', 'proses')->get();
+        $transaksi = DB::table('pesanan_servis')->where('status_store', 'proses')->orderBy('created_at', 'desc')->get();
         $totalPendapatanBulanIni = DB::table('pesanan_servis')
             ->where('status_store', 'proses')
             ->whereMonth('created_at', date('m')) // Filter berdasarkan bulan
@@ -36,7 +36,6 @@ class LaporanServisController extends Controller
                 'kelengkapan' => 'required',
                 'harga_modal' => 'required',
                 'harga_jual' => 'required',
-                'laba' => 'required',
             ],
             [
                 'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
@@ -45,13 +44,12 @@ class LaporanServisController extends Controller
                 'kelengkapan.required' => 'Kelengkapan harus diisi.',
                 'harga_modal.required' => 'Harga modal harus diisi.',
                 'harga_jual.required' => 'Harga jual harus diisi.',
-                'laba.required' => 'Laba harus diisi.',
             ]
         );
 
         $harga_modal = str_replace('.', '', $request->harga_modal);
         $harga_jual = str_replace('.', '', $request->harga_jual);
-        $laba = str_replace('.', '', $request->laba);
+        $laba = $harga_modal - $harga_jual;
 
         DB::table('pesanan_servis')->insert([
             'nama_pelanggan' => $request->nama_pelanggan,
@@ -88,7 +86,6 @@ class LaporanServisController extends Controller
                 'kelengkapan' => 'required',
                 'harga_modal' => 'required',
                 'harga_jual' => 'required',
-                'laba' => 'required',
             ],
             [
                 'nama_pelanggan.required' => 'Nama pelanggan harus diisi.',
@@ -97,13 +94,12 @@ class LaporanServisController extends Controller
                 'kelengkapan.required' => 'Kelengkapan harus diisi.',
                 'harga_modal.required' => 'Harga modal harus diisi.',
                 'harga_jual.required' => 'Harga jual harus diisi.',
-                'laba.required' => 'Laba harus diisi.',
             ]
         );
 
         $harga_modal = str_replace('.', '', $request->harga_modal);
         $harga_jual = str_replace('.', '', $request->harga_jual);
-        $laba = str_replace('.', '', $request->laba);
+        $laba = $harga_modal - $harga_jual;
 
         DB::table('pesanan_servis')->where('id_pesanan_servis', $id)->update([
             'nama_pelanggan' => $request->nama_pelanggan,
