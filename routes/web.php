@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LaporanJilidController;
 use App\Http\Controllers\Admin\LaporanBimbelController;
 use App\Http\Controllers\Admin\LaporanJasController;
 use App\Http\Controllers\Admin\LaporanServisController;
+use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
@@ -35,6 +36,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/beranda', 'index')->name('beranda');
     });
 
+    Route::controller(PengeluaranController::class)->group(function () {
+        Route::get('/pengeluaran', 'pengeluaran')->name('pengeluaran');
+    });
+
+    //route laporan printing admin
     Route::controller(LaporanPrintingController::class)->group(function () {
         Route::get('/laporan-keuangan/printing', 'printing')->name('laporan-keuangan.printing');
         Route::get('/order/printing/tambah', 'tambah')->name('printing.tambah');
